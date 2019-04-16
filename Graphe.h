@@ -10,6 +10,7 @@ public:
 	Coord(short x, short y);
 	short get_x() const;//accesseur de m_x
 	short get_y() const;//accesseur de m_y
+	void mod_c(short _x_add,short _y_add); //add value to x and y
 	~Coord();
 
 protected:
@@ -24,7 +25,7 @@ namespace thg
 	class Link
 	{
 	public:
-		Link(std::string _id, float _cost1, float _cost2,std::string _a, std::string _b); //ajout des paramètres de mode et de coord text
+		Link(std::string _id, float _cost1, float _cost2,std::string _a, std::string _b,Coord _mid_link,char _mode ); //ajout des paramètres de mode et de coord text
 
 		//----------------GETTER-----------------------
 		float get_cos1()
@@ -46,6 +47,26 @@ namespace thg
 		std::string get_id()
 		{
 			return m_id;
+		}
+		Coord get_coord_mid()
+		{
+			return m_coord_text;
+		}
+		char get_mode()
+		{
+			return m_mode;
+		}
+		void mod_coord_mid(short _x_add, short _y_add)
+		{
+			m_coord_text.mod_c(_x_add, _y_add);
+		}
+		std::string weight_show()const
+		{
+			std::stringstream oss;
+			oss << m_cost1;
+			oss << ";";
+			oss << m_cost2;
+			return oss.str();
 		}
 		~Link();
 
@@ -72,9 +93,9 @@ namespace thg
 		void research_ps(int& _parity) const;
 
 					A REMETTRE	
+
 		std::unordered_map<std::string, std::string> BFS_course() const;
 		std::unordered_map<std::string, std::string> DFS_course() const;
-
 		void researchCC(std::unordered_set<std::string>& _cc) const;*/
 
 		//-----------------------GETTER---------------------------
@@ -113,14 +134,14 @@ namespace thg
 	public:
 		Graph(std::string _FileName);
 
-		void show_svg(Svgfile& _out);
+		void show_svg(Svgfile& _out, bool _show_info=true);
 		~Graph();
 		/*			A VOIR SI REMETTRE
 		void BFS_show(std::string _StartingEdge) const;
 		void DFS_show(std::string _StartingEdge) const;
-
 		void BFS_course(std::string _StartingEdge) const;
 		void DFS_course(std::string _StartingEdge) const;
+
 		int research_show_CC() const;*/
 
 		///-----------------------------A CODER----------------
@@ -136,6 +157,8 @@ namespace thg
 		std::unordered_map<std::string, Link*> m_links;
 	};
 
+	//-----------------PATH--------------------------
+	
 
 }
 #endif //LIB_THG

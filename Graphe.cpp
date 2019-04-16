@@ -16,6 +16,12 @@ short Coord::get_y() const
 	return m_y;
 }
 
+void Coord::mod_c(short _x_add,short _y_add)
+{
+	m_x += _x_add;
+	m_y += _y_add;
+}
+
 Coord::~Coord()
 {
 
@@ -59,8 +65,16 @@ namespace thg
 		unsigned int NbLinks2;
 		float weight1;
 		float weight2;
+		short mid_x_link=0;
+		short mid_y_link=0;
+		short Point_A_x;
+		short Point_A_y;
+		short Point_B_x;
+		short Point_B_y;
 		std::string id_A;
 		std::string id_B;
+		char mode;
+
 		file1 >> NbLinks;
 		file2 >> NbLinks2;
 		file2 >> id;
@@ -74,30 +88,45 @@ namespace thg
 			file1 >> id_B;//On récupère l'id du point de destination
 			file2 >> weight1;//On récupère dans le deuxième fichier le premier poids
 			file2 >> weight2;//puis le deuxième
-			/*
-				Calcul avec la différence des coord id_A et id_B lpour avoir coord_text
 
-				Recherche du mode de l'arrête:
-					x_a=x_b => vertical , y_a=y_b=> horizontal
-				sinon
-					si x_a<x_b et y_a<y_b ou x_b<x_a et y_b<y_a 
-						alors
-							mode='l'
-					sinon si x_a>x_b et y_a<y_b ou x_b>x_a et y_b<y_a
-						alors
-							mode='r'
-			*/
-			Link* ptLink = new Link(id, weight1, weight2, id_A, id_B);
+			Point_A_x =( m_points.find(id_A))->second->get_coord().get_x();
+			Point_A_y =( m_points.find(id_A))->second->get_coord().get_y();
+			Point_B_x =( m_points.find(id_B))->second->get_coord().get_x();
+			Point_B_y =( m_points.find(id_B))->second->get_coord().get_y();
+			
+				//Calcul avec la différence des coord id_A et id_B lpour avoir coord_text
+				mid_x_link = (Point_A_x + Point_B_x) / 2;
+				mid_y_link = (Point_A_y + Point_B_y) / 2;
+				//Recherche du mode de l'arrête:
+
+				if (Point_A_x==Point_B_x)
+				{
+					mode = 'v';
+				}
+				else if (Point_A_y == Point_B_y)
+				{
+					mode = 'h';
+				}
+				else 
+				{
+					if ((Point_A_x<Point_B_x && Point_A_y < Point_B_y)||(Point_B_x < Point_A_x && Point_B_y < Point_A_y))
+					{
+						mode = 'l';
+					}
+					else
+					{
+						mode = 'r';
+					}
+				}
+
+			
+				Link* ptLink = new Link(id, weight1, weight2, id_A, id_B, {mid_x_link,mid_y_link}, mode);
 			m_links.insert({ id, ptLink  }); //On aoute toutes les valeurs récupérer sur l'arrête dans la map comprise dans le graphe
 
 			//Ajout des voisins dans les données des points
 			(m_points.find(id_A))->second->addNeighboor(ptLink, id_B);//Ajout de la liaison entre A et B
 			(m_points.find(id_B))->second->addNeighboor(ptLink, id_A);//Ajout de la liaison entre B et A
 		}
-		//Ajout des extrémités des arrêtes//
-		//Relecture du nombre d'arrêtes//
-		//Lecture du nombre de poids à prendre en compte (premier test avec 2 non dynamique)//
-		//Ajout pour id du nombre cost1 et cost2//
 		file1.close();
 		file2.close();
 		
@@ -151,7 +180,7 @@ namespace thg
 		Point* s0 = (m_points.find(_StartingEdge))->second;
 		std::unordered_map<std::string, std::string> l_pred;
 		l_pred = s0->DFS_course();
-	}*/
+	}
 
 	//std::unordered_map<Point*, std::list<Point*>> Graph::smaller_travel(const Point& _DepartPoint, bool reverse = false) const
 		/**
@@ -188,7 +217,7 @@ namespace thg
 		return i;
 	}
 	*/
-	void Graph::show_svg(Svgfile& _out)
+	void Graph::show_svg(Svgfile& _out,bool _show_info)
 	{
 		/**
 		Affiche le svg du graphe, update necessaire: ajouter un moyen de donner le point de référence depuis lequel tracer le graphe / Donner les coûts des arrêtes
@@ -200,6 +229,28 @@ namespace thg
 		for (const auto& at : m_links)
 		{
 			_out.addLine((m_points.find(at.second->get_id_a()))->second->get_coord().get_x(), (m_points.find(at.second->get_id_a()))->second->get_coord().get_y(), (m_points.find(at.second->get_id_b()))->second->get_coord().get_x(), (m_points.find(at.second->get_id_b()))->second->get_coord().get_y());
+			if (_show_info)
+			{
+				switch (at.second->get_mode())
+				{
+				case 'v':
+					at.second->mod_coord_mid(-25, 0);
+					break;
+				case 'h':
+					at.second->mod_coord_mid(0, -10);
+					break;
+				case 'r':
+					at.second->mod_coord_mid(-10, -10);
+					break;
+				case 'l':
+					at.second->mod_coord_mid(5, -10);
+					break;
+				default:
+					break;
+				}
+				_out.addText(at.second->get_coord_mid().get_x(), at.second->get_coord_mid().get_y(), at.second->weight_show());
+
+			}
 		}
 	}
 
@@ -224,6 +275,7 @@ namespace thg
 
 
 
+
 	/*					PARTIE A REMETTRE SANS BUG
 	
 	std::unordered_map<std::string, std::string> Point::BFS_course() const
@@ -236,12 +288,12 @@ namespace thg
 		do {
 			s = file.front();//on recupere le Point de tete
 			file.pop();
-			for (size_t i = 0; i < s->m_neighboors.size(); i++)
+			for (const auto& it : s->get_neighboors)
 			{
-				if (l_pred.find(s->m_neighboors[i].first->m_id) == (l_pred.end()) && (s->m_neighboors[i]->first != this))
+				if (l_pred.find(it.first.m_id)==(l_pred.end()) && (it.first != this))
 				{
-					file.push(s->m_neighboors[i]->first);
-					l_pred.insert({ s->m_neighboors[i]->first->m_id,s->m_id });
+					file.push(it.first);
+					l_pred.insert({ it.first.m_id,it.m_id });
 				}
 			}
 
@@ -249,7 +301,6 @@ namespace thg
 
 		return l_pred;
 	}
-
 	std::unordered_map<std::string, std::string> Point::DFS_course() const
 	{
 		std::unordered_map<std::string, std::string> l_pred;
@@ -260,12 +311,12 @@ namespace thg
 		{
 			s = pile.top();//on recupere le Point de tete
 			pile.pop();
-			for (size_t i = 0; i < s->m_neighboors.size(); i++)
+			for (const auto& it : s->get_neighboors)
 			{
-				if (l_pred.find(s->m_neighboors[i].first->m_id) == (l_pred.end()) && (s->m_neighboors[i]->first != this))
+				if (l_pred.find(it.first.m_id)==(l_pred.end()) && (it.first != this))
 				{
-					pile.push(s->m_neighboors[i]->first);
-					l_pred.insert({ s->m_neighboors[i]->first->m_id,s->m_id });
+					pile.push(it.first);
+					l_pred.insert({ it.first.m_id,it.m_id });
 				}
 			}
 		}
@@ -298,7 +349,7 @@ namespace thg
 
 
 	//------------------LINK------------------
-	Link::Link(std::string _id, float _cost1, float _cost2, std::string _a, std::string _b) : m_id{ _id }, m_cost1{ _cost1 }, m_cost2{ _cost2 }, m_point_A{ _a }, m_point_B{ _b }, m_mode{ 'n' }, m_coord_text{0,0}
+	Link::Link(std::string _id, float _cost1, float _cost2, std::string _a, std::string _b, Coord _mid_link , char _mode) : m_id{ _id }, m_cost1{ _cost1 }, m_cost2{ _cost2 }, m_point_A{ _a }, m_point_B{ _b }, m_mode{ _mode }, m_coord_text{_mid_link}
 	{
 		std::cout << "Link constructor id:" << m_id + " " << m_cost1 << " " << m_cost2 << " " + m_point_A + " " + m_point_B << std::endl;
 		//Calcul de l'emplacement exact d'écriture grace au mode et au coord du milieu
