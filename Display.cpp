@@ -53,15 +53,13 @@ std::string attrib(std::string name, T val)
 	return oss.str();
 }
 
-void Svgfile::addCircle(double x, double y, double r, double ep, std::string color)
+void Svgfile::addCircle(double x, double y, double r, std::string color)
 {
 	m_ostrm << "<circle "
 		<< attrib("cx", x)
 		<< attrib("cy", y)
 		<< attrib("r", r)
-		<< attrib("fill", "none")
-		<< attrib("stroke", color)
-		<< attrib("stroke-width", ep)
+		<< attrib("fill", color)
 		<< "/>\n";
 }
 

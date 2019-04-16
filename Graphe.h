@@ -2,6 +2,7 @@
 #define LIB_THG
 
 #include "main.h"
+class Svgfile;
 
 class Coord
 {
@@ -23,14 +24,16 @@ namespace thg
 	class Link
 	{
 	public:
-		Link(std::string _id, float _cost1, float _cost2,std::string _a, std::string _b);
+		Link(std::string _id, float _cost1, float _cost2,std::string _a, std::string _b); //ajout des paramètres de mode et de coord text
+
+		//----------------GETTER-----------------------
 		float get_cos1()
 		{
-			return m_cost1;
+			return m_cost1;//weight 1  of the link
 		}
 		float get_cos2()
 		{
-			return m_cost2;
+			return m_cost2;//weight 2  of the link
 		}
 		std::string get_id_a()
 		{
@@ -49,6 +52,8 @@ namespace thg
 	protected:
 		float m_cost1;
 		float m_cost2;
+		char m_mode; //mode of the link : horizontal: 'h' / vertical : 'v' / diagonal up right : 'r' / diagonal up left : 'l' and 'n' as null
+		Coord m_coord_text; //Coord for the text (weights)
 
 		std::string m_id;
 		std::string m_point_A;
@@ -61,14 +66,18 @@ namespace thg
 	public:
 		Point(std::string _Name,short _x , short _y);
 		void addNeighboor( Link* _link,std::string _id);
-		/*void showNeighboors() const;
+		/*
+					A VOIR SI NECESSAIRE
+		void showNeighboors() const;
+		void research_ps(int& _parity) const;
 
+					A REMETTRE	
 		std::unordered_map<std::string, std::string> BFS_course() const;
 		std::unordered_map<std::string, std::string> DFS_course() const;
 
 		void researchCC(std::unordered_set<std::string>& _cc) const;*/
 
-
+		//-----------------------GETTER---------------------------
 		std::string get_id() const
 		{
 			return m_id;
@@ -85,7 +94,6 @@ namespace thg
 		}
 
 
-		//void research_ps(int& _parity) const;
 
 
 		~Point();
@@ -103,29 +111,29 @@ namespace thg
 	class Graph
 	{
 	public:
-		Graph(std::string _FileName, Svgfile& _out);
+		Graph(std::string _FileName);
+
+		void show_svg(Svgfile& _out);
+		~Graph();
+		/*			A VOIR SI REMETTRE
 		void BFS_show(std::string _StartingEdge) const;
 		void DFS_show(std::string _StartingEdge) const;
 
 		void BFS_course(std::string _StartingEdge) const;
 		void DFS_course(std::string _StartingEdge) const;
-		///-----------------------------Sans doute mettre un string au lieu de reference sur un point?----------------
+		int research_show_CC() const;*/
+
+		///-----------------------------A CODER----------------
 		std::unordered_map<Point*, std::list<Point*>> smaller_travel(const Point& _DepartPoint, bool reverse) const;//Djisktra algorithm to find the smallest distance between all points and show it. Reverse mode make choose the longest one
 
 		Graph Prim_algorithm(const Point& _DepartPoint) const;	//Return a partial Graph with all smallest connexion
 
-		int research_show_CC() const;
 
-		bool parity()const;
 
-		void show_svg()const;
-
-		~Graph();
 
 	protected:
 		std::unordered_map<std::string, Point*> m_points;
 		std::unordered_map<std::string, Link*> m_links;
-		Svgfile& m_display;
 	};
 
 

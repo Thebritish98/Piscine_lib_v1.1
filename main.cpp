@@ -2,11 +2,13 @@
 
 int main()
 {
+	Svgfile svgout;
 	std::string Name_File;
-	/*std::cout << "Nom du modele:";
-	std::cin >> Name_File;*/
-	thg::Graph test("broadway");
-	//test.show_svg();
+	std::cout << "Nom du modele:";
+	std::cin >> Name_File;
+	thg::Graph test(Name_File);
+	test.show_svg(svgout);
+	util::exec("output.svg");
 	return 0;
 }
 

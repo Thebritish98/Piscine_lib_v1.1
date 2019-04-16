@@ -25,37 +25,36 @@ namespace thg
 {
 
 	//------------------GRAPH------------------
-	Graph::Graph(std::string _FileName,Svgfile& _out):m_display{_out}
+	Graph::Graph(std::string _FileName)
 	{
 		std::string value;
-		std::ifstream file1{ _FileName + ".txt" };
+		std::ifstream file1{ _FileName + ".txt" };		//Ouvre le fichier .txt demandé
 		std::cout << "Quelle chiffre de fichier?";
-		std::cin >> value;
-		std::ifstream file2{ _FileName + "_weights_" + value +".txt" };
+		std::cin >> value;								//On choisit ici quel fichier d epoids on veut ouvrir avec
+		std::ifstream file2{ _FileName + "_weights_" + value +".txt" };	//Ouverture du fichier cité au dessus
 		if (!file1 || !file2)
-			throw std::runtime_error("Impossible d'ouvrir en lecture " + _FileName +".txt ou "+ _FileName + "_weights_" + value + ".txt");
+			throw std::runtime_error("Impossible d'ouvrir en lecture " + _FileName +".txt ou "+ _FileName + "_weights_" + value + ".txt");	//lance une erreur si le fichier ne peux pas s'ouvrir car n'existe pas
 		if (file1.fail() || file2.fail())
 			throw std::runtime_error("Probleme lecture ordre du graphe");
 
-		//Lecture nombre de sommets//
+		//Création des variables necessaire à la récupération des coordonnées
 		unsigned int NbPoints;
-		short coord_1=0;
-		short coord_2=0;
+		short x=0;
+		short y=0;
 		std::string id;
 		file1 >> NbPoints;
 
 
 		//création des sommets avec Coords///
-		for (unsigned int i = 0; i < NbPoints; i++)
+		for (unsigned int i = 0; i < NbPoints; i++) //Tant que tous les points ne sont pas ajoutés
 		{
 			file1 >> id; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
-			file1 >> coord_1; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
-			file1 >> coord_2; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
-			std::cout << coord_1 << " " << coord_2 << "--------------";
-			m_points.insert({ id, new Point(id, coord_1,coord_2 ) });
-			m_display.addCircle(coord_1, coord_2, 10, 2);
+			file1 >> x; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
+			file1 >> y; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
+			std::cout << x << " " << y << "--------------";
+			m_points.insert({ id, new Point(id, x,y ) });
 		}
-		//Lecture nombre d'arrêtes//
+		//Déclaration des variables nécessaire à la création des arrêtes//
 		unsigned int NbLinks;
 		unsigned int NbLinks2;
 		float weight1;
@@ -65,16 +64,35 @@ namespace thg
 		file1 >> NbLinks;
 		file2 >> NbLinks2;
 		file2 >> id;
-		if (NbLinks != NbLinks2)
+
+		if (NbLinks != NbLinks2)//Si le nombre d'arrête du fichier 1 et 2 sont différentes alors on lance une erreur
 			throw std::runtime_error("Nombre d'arrete différents dans les fichiers");
 		for (unsigned int i = 0; i < NbLinks; i++)
 		{
 			file1 >> id; file2 >> id;//Trouver moyen de passer directement à la suite//
-			file1 >> id_A;
-			file1 >> id_B;
-			file2 >> weight1;
-			file2 >> weight2;
-			m_links.insert({ id, new Link(id,weight1,weight2,id_A,id_B) });
+			file1 >> id_A;//On récupère l'id du point de départ
+			file1 >> id_B;//On récupère l'id du point de destination
+			file2 >> weight1;//On récupère dans le deuxième fichier le premier poids
+			file2 >> weight2;//puis le deuxième
+			/*
+				Calcul avec la différence des coord id_A et id_B lpour avoir coord_text
+
+				Recherche du mode de l'arrête:
+					x_a=x_b => vertical , y_a=y_b=> horizontal
+				sinon
+					si x_a<x_b et y_a<y_b ou x_b<x_a et y_b<y_a 
+						alors
+							mode='l'
+					sinon si x_a>x_b et y_a<y_b ou x_b>x_a et y_b<y_a
+						alors
+							mode='r'
+			*/
+			Link* ptLink = new Link(id, weight1, weight2, id_A, id_B);
+			m_links.insert({ id, ptLink  }); //On aoute toutes les valeurs récupérer sur l'arrête dans la map comprise dans le graphe
+
+			//Ajout des voisins dans les données des points
+			(m_points.find(id_A))->second->addNeighboor(ptLink, id_B);//Ajout de la liaison entre A et B
+			(m_points.find(id_B))->second->addNeighboor(ptLink, id_A);//Ajout de la liaison entre B et A
 		}
 		//Ajout des extrémités des arrêtes//
 		//Relecture du nombre d'arrêtes//
@@ -85,6 +103,8 @@ namespace thg
 		
 	}
 
+
+		//A REMETTRE
 	/*void Graph::BFS_show(std::string _StartingEdge) const
 	{
 		Point* s0 = (m_points.find(_StartingEdge))->second;
@@ -167,24 +187,19 @@ namespace thg
 		}
 		return i;
 	}
-
-	bool Graph::parity() const
+	*/
+	void Graph::show_svg(Svgfile& _out)
 	{
-		int parite = 0;
-		for (const auto& it : m_points)
-			it.second->research_ps(parite);
-		if (parite != 0)
-			return true;
-		else
-			return false;
-	}*/
-
-	void Graph::show_svg() const
-	{
+		/**
+		Affiche le svg du graphe, update necessaire: ajouter un moyen de donner le point de référence depuis lequel tracer le graphe / Donner les coûts des arrêtes
+		**/
 		for (const auto& it : m_points)
 		{
-			
-
+			_out.addCircle(it.second->get_coord().get_x(), it.second->get_coord().get_y(), 6);
+		}
+		for (const auto& at : m_links)
+		{
+			_out.addLine((m_points.find(at.second->get_id_a()))->second->get_coord().get_x(), (m_points.find(at.second->get_id_a()))->second->get_coord().get_y(), (m_points.find(at.second->get_id_b()))->second->get_coord().get_x(), (m_points.find(at.second->get_id_b()))->second->get_coord().get_y());
 		}
 	}
 
@@ -200,11 +215,18 @@ namespace thg
 	{
 	}
 	void Point::addNeighboor( Link* _link, std::string _id)
+		/**
+		Ajout de voisin dans la liste
+		**/
 	{
 		m_neighboors.insert({ _link,_id });
 	}
 
-	/*std::unordered_map<std::string, std::string> Point::BFS_course() const
+
+
+	/*					PARTIE A REMETTRE SANS BUG
+	
+	std::unordered_map<std::string, std::string> Point::BFS_course() const
 	{
 		std::unordered_map<std::string, std::string> l_pred;
 		std::queue<const Point*> file;
@@ -276,9 +298,10 @@ namespace thg
 
 
 	//------------------LINK------------------
-	Link::Link(std::string _id, float _cost1, float _cost2, std::string _a, std::string _b) : m_id{ _id }, m_cost1{ _cost1 }, m_cost2{ _cost2 }, m_point_A{_a}, m_point_B{_b}
+	Link::Link(std::string _id, float _cost1, float _cost2, std::string _a, std::string _b) : m_id{ _id }, m_cost1{ _cost1 }, m_cost2{ _cost2 }, m_point_A{ _a }, m_point_B{ _b }, m_mode{ 'n' }, m_coord_text{0,0}
 	{
 		std::cout << "Link constructor id:" << m_id + " " << m_cost1 << " " << m_cost2 << " " + m_point_A + " " + m_point_B << std::endl;
+		//Calcul de l'emplacement exact d'écriture grace au mode et au coord du milieu
 	}
 
 	Link::~Link()
