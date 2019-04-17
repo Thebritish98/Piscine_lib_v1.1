@@ -1,6 +1,8 @@
 #ifndef MAINHPP
 #define MAINHPP
 
+#include <bitset> //bits/stdc++.h?
+#include <math.h>
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
@@ -16,6 +18,7 @@
 
 #include "Display.h"
 #include "Graphe.h"
+#include "Path.h"
 
 namespace util 
 {
