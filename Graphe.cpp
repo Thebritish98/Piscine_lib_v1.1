@@ -47,7 +47,7 @@ namespace thg
 		unsigned int NbPoints;
 		short x=0;
 		short y=0;
-		std::string id;
+		unsigned int id;
 		file1 >> NbPoints;
 
 
@@ -57,8 +57,7 @@ namespace thg
 			file1 >> id; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
 			file1 >> x; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
 			file1 >> y; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
-			std::cout << x << " " << y << "--------------";
-			m_points.insert({ id, new Point(id, x,y ) });
+			m_points.push_back(new Point(id, x,y ) );
 		}
 		//Déclaration des variables nécessaire à la création des arrêtes//
 		unsigned int NbLinks;
@@ -71,13 +70,13 @@ namespace thg
 		short Point_A_y;
 		short Point_B_x;
 		short Point_B_y;
-		std::string id_A;
-		std::string id_B;
+		unsigned int id_A;
+		unsigned int id_B;
 		char mode;
 
-		file1 >> NbLinks;
-		file2 >> NbLinks2;
-		file2 >> id;
+		file1 >> NbLinks; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
+		file2 >> NbLinks2; if (file2.fail()) throw std::runtime_error("Probleme de lecture des données");
+		file2 >> id; if (file2.fail()) throw std::runtime_error("Probleme de lecture des données");
 
 		if (NbLinks != NbLinks2)//Si le nombre d'arrête du fichier 1 et 2 sont différentes alors on lance une erreur
 			throw std::runtime_error("Nombre d'arrete différents dans les fichiers");
@@ -89,10 +88,10 @@ namespace thg
 			file2 >> weight1;//On récupère dans le deuxième fichier le premier poids
 			file2 >> weight2;//puis le deuxième
 
-			Point_A_x =( m_points.find(id_A))->second->get_coord().get_x();
-			Point_A_y =( m_points.find(id_A))->second->get_coord().get_y();
-			Point_B_x =( m_points.find(id_B))->second->get_coord().get_x();
-			Point_B_y =( m_points.find(id_B))->second->get_coord().get_y();
+			Point_A_x = m_points[id_A]->get_coord().get_x();
+			Point_A_y = m_points[id_A]->get_coord().get_y();
+			Point_B_x = m_points[id_B]->get_coord().get_x();
+			Point_B_y = m_points[id_B]->get_coord().get_y();
 			
 				//Calcul avec la différence des coord id_A et id_B lpour avoir coord_text
 				mid_x_link = (Point_A_x + Point_B_x) / 2;
@@ -121,11 +120,11 @@ namespace thg
 
 			
 				Link* ptLink = new Link(id, weight1, weight2, id_A, id_B, {mid_x_link,mid_y_link}, mode);
-			m_links.insert({ id, ptLink  }); //On aoute toutes les valeurs récupérer sur l'arrête dans la map comprise dans le graphe
+			m_links.push_back(ptLink  ); //On aoute toutes les valeurs récupérer sur l'arrête dans la map comprise dans le graphe
 
 			//Ajout des voisins dans les données des points
-			(m_points.find(id_A))->second->addNeighboor(ptLink, id_B);//Ajout de la liaison entre A et B
-			(m_points.find(id_B))->second->addNeighboor(ptLink, id_A);//Ajout de la liaison entre B et A
+			m_points[id_A]->addNeighboor(ptLink, id_B);//Ajout de la liaison entre A et B
+			m_points[id_B]->addNeighboor(ptLink, id_A);//Ajout de la liaison entre B et A
 		}
 		file1.close();
 		file2.close();
@@ -224,31 +223,31 @@ namespace thg
 		**/
 		for (const auto& it : m_points)
 		{
-			_out.addCircle(it.second->get_coord().get_x(), it.second->get_coord().get_y(), 6);
+			_out.addCircle(it->get_coord().get_x(), it->get_coord().get_y(), 6);
 		}
 		for (const auto& at : m_links)
 		{
-			_out.addLine((m_points.find(at.second->get_id_a()))->second->get_coord().get_x(), (m_points.find(at.second->get_id_a()))->second->get_coord().get_y(), (m_points.find(at.second->get_id_b()))->second->get_coord().get_x(), (m_points.find(at.second->get_id_b()))->second->get_coord().get_y());
+			_out.addLine((m_points[at->get_id_a()])->get_coord().get_x(), (m_points[at->get_id_a()])->get_coord().get_y(), (m_points[at->get_id_b()])->get_coord().get_x(), (m_points[at->get_id_b()])->get_coord().get_y());
 			if (_show_info)
 			{
-				switch (at.second->get_mode())
+				switch (at->get_mode())
 				{
 				case 'v':
-					at.second->mod_coord_mid(-25, 0);
+					at->mod_coord_mid(-25, 0);
 					break;
 				case 'h':
-					at.second->mod_coord_mid(0, -10);
+					at->mod_coord_mid(0, -10);
 					break;
 				case 'r':
-					at.second->mod_coord_mid(-10, -10);
+					at->mod_coord_mid(-10, -10);
 					break;
 				case 'l':
-					at.second->mod_coord_mid(5, -10);
+					at->mod_coord_mid(5, -10);
 					break;
 				default:
 					break;
 				}
-				_out.addText(at.second->get_coord_mid().get_x(), at.second->get_coord_mid().get_y(), at.second->weight_show());
+				_out.addText(at->get_coord_mid().get_x(), at->get_coord_mid().get_y(), at->weight_show());
 
 			}
 		}
@@ -262,10 +261,10 @@ namespace thg
 
 
 	//------------------POINT------------------
-	Point::Point(std::string _Name, short _x, short _y) :m_id{ _Name }, m_Coord {_x,_y}
+	Point::Point(unsigned int _id, short _x, short _y) :m_id{ _id }, m_Coord {_x,_y}
 	{
 	}
-	void Point::addNeighboor( Link* _link, std::string _id)
+	void Point::addNeighboor( Link* _link, unsigned int _id)
 		/**
 		Ajout de voisin dans la liste
 		**/
@@ -349,10 +348,9 @@ namespace thg
 
 
 	//------------------LINK------------------
-	Link::Link(std::string _id, float _cost1, float _cost2, std::string _a, std::string _b, Coord _mid_link , char _mode) : m_id{ _id }, m_cost1{ _cost1 }, m_cost2{ _cost2 }, m_point_A{ _a }, m_point_B{ _b }, m_mode{ _mode }, m_coord_text{_mid_link}
+	Link::Link(unsigned int _id, float _cost1, float _cost2, unsigned int _a, unsigned int _b, Coord _mid_link , char _mode) : m_id{ _id }, m_cost1{ _cost1 }, m_cost2{ _cost2 }, m_point_A{ _a }, m_point_B{ _b }, m_mode{ _mode }, m_coord_text{_mid_link}
 	{
-		std::cout << "Link constructor id:" << m_id + " " << m_cost1 << " " << m_cost2 << " " + m_point_A + " " + m_point_B << std::endl;
-		//Calcul de l'emplacement exact d'écriture grace au mode et au coord du milieu
+		//std::cout << "Link constructor id:" << m_id + " " << m_cost1 << " " << m_cost2 << " " << m_point_A << " " << m_point_B << std::endl;
 	}
 
 	Link::~Link()

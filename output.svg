@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="800">
 
-<circle cx="275" cy="340" r="6" fill="black" />
 <circle cx="225" cy="85" r="6" fill="black" />
 <circle cx="175" cy="170" r="6" fill="black" />
 <circle cx="275" cy="170" r="6" fill="black" />
@@ -10,9 +9,8 @@
 <circle cx="325" cy="255" r="6" fill="black" />
 <circle cx="75" cy="340" r="6" fill="black" />
 <circle cx="175" cy="340" r="6" fill="black" />
+<circle cx="275" cy="340" r="6" fill="black" />
 <circle cx="375" cy="340" r="6" fill="black" />
-<line x1="225" y1="255" x2="325" y2="255" stroke="black" />
-<text x="275" y="245" fill="black" >8;7</text>
 <line x1="225" y1="85" x2="175" y2="170" stroke="black" />
 <text x="190" y="117" fill="black" >6;4</text>
 <line x1="225" y1="85" x2="275" y2="170" stroke="black" />
@@ -29,6 +27,8 @@
 <text x="305" y="202" fill="black" >4;5</text>
 <line x1="125" y1="255" x2="225" y2="255" stroke="black" />
 <text x="175" y="245" fill="black" >1;8</text>
+<line x1="225" y1="255" x2="325" y2="255" stroke="black" />
+<text x="275" y="245" fill="black" >8;7</text>
 <line x1="125" y1="255" x2="75" y2="340" stroke="black" />
 <text x="90" y="287" fill="black" >3;6</text>
 <line x1="125" y1="255" x2="175" y2="340" stroke="black" />

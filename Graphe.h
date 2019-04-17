@@ -25,7 +25,7 @@ namespace thg
 	class Link
 	{
 	public:
-		Link(std::string _id, float _cost1, float _cost2,std::string _a, std::string _b,Coord _mid_link,char _mode ); //ajout des paramètres de mode et de coord text
+		Link(unsigned int _id, float _cost1, float _cost2, unsigned int _a, unsigned int _b,Coord _mid_link,char _mode ); //ajout des paramètres de mode et de coord text
 
 		//----------------GETTER-----------------------
 		float get_cos1()
@@ -36,15 +36,15 @@ namespace thg
 		{
 			return m_cost2;//weight 2  of the link
 		}
-		std::string get_id_a()
+		unsigned int get_id_a()
 		{
 			return m_point_A;
 		}
-		std::string get_id_b()
+		unsigned int get_id_b()
 		{
 			return m_point_B;
 		}
-		std::string get_id()
+		unsigned int get_id()
 		{
 			return m_id;
 		}
@@ -76,17 +76,17 @@ namespace thg
 		char m_mode; //mode of the link : horizontal: 'h' / vertical : 'v' / diagonal up right : 'r' / diagonal up left : 'l' and 'n' as null
 		Coord m_coord_text; //Coord for the text (weights)
 
-		std::string m_id;
-		std::string m_point_A;
-		std::string m_point_B;
+		unsigned int m_id;
+		unsigned int m_point_A;
+		unsigned int m_point_B;
 	};
 
 	//------------------POINT------------------
 	class Point
 	{
 	public:
-		Point(std::string _Name,short _x , short _y);
-		void addNeighboor( Link* _link,std::string _id);
+		Point(unsigned int _id,short _x , short _y);
+		void addNeighboor( Link* _link, unsigned int _id);
 		/*
 					A VOIR SI NECESSAIRE
 		void showNeighboors() const;
@@ -99,7 +99,7 @@ namespace thg
 		void researchCC(std::unordered_set<std::string>& _cc) const;*/
 
 		//-----------------------GETTER---------------------------
-		std::string get_id() const
+		unsigned int get_id() const
 		{
 			return m_id;
 		}
@@ -109,7 +109,7 @@ namespace thg
 			return m_Coord;
 		}
 
-		std::unordered_map<Link*, std::string> get_neighboors() const
+		std::unordered_map<Link*, unsigned int> get_neighboors() const
 		{
 			return m_neighboors;
 		}
@@ -120,9 +120,9 @@ namespace thg
 		~Point();
 
 	protected:
-		std::unordered_map<Link* , std::string> m_neighboors;
+		std::unordered_map<Link* , unsigned int> m_neighboors;
 
-		std::string m_id;
+		unsigned int m_id;
 
 		Coord m_Coord;
 	};
@@ -153,8 +153,8 @@ namespace thg
 
 
 	protected:
-		std::unordered_map<std::string, Point*> m_points;
-		std::unordered_map<std::string, Link*> m_links;
+		std::vector<Point*> m_points;
+		std::vector<Link*> m_links;
 	};
 
 	//-----------------PATH--------------------------
