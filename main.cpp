@@ -1,6 +1,5 @@
 #include "main.h"
 
-
 int main()
 {
 	Svgfile svgout;
@@ -10,9 +9,7 @@ int main()
 	Graph test(Name_File);
 	test.show_svg(svgout);
 	util::exec("output.svg");
-	std::bitset<5> lol;
-    Link george;
-    return 0;
+	return 0;
 }
 
 namespace util
@@ -23,3 +20,4 @@ namespace util
 	}
 
 }
+

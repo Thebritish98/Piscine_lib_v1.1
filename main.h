@@ -1,7 +1,7 @@
 #ifndef MAINHPP
 #define MAINHPP
 
-#include <bits/stdc++.h>
+#include <bitset> //bits/stdc++.h?
 #include <math.h>
 #include <iostream>
 #include <unordered_map>
@@ -15,18 +15,16 @@
 #include <queue>
 #include <set>
 #include <Windows.h>
-#include <list>
+
 #include "Display.h"
 #include "Graphe.h"
-
-
-
 #include "Path.h"
-namespace util
+
+namespace util 
 {
 
 	void exec(LPCSTR FileName);
-
+	
 }
 
 #endif // !MAINHPP
