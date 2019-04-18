@@ -31,7 +31,7 @@ class Link
 public:
 	Link(){}
 	Link(Link& _link_cop);
-	Link(unsigned int _id, float _cost1, float _cost2, unsigned int _a, unsigned int _b,Coord _mid_link,char _mode ); //ajout des paramètres de mode et de coord text
+	Link(unsigned int _id, float _cost1, float _cost2, unsigned int _a, unsigned int _b,Coord _mid_link,char _mode ); //ajout des paramÃ¨tres de mode et de coord text
 
 	//----------------GETTER-----------------------
 	float get_cos1()
@@ -94,7 +94,7 @@ public:
 	Point(unsigned int _id,short _x , short _y);
 	void addNeighboor( Link* _link, unsigned int _id);
 
-				/*A REMETTRE	
+				/*A REMETTRE
 
 	std::unordered_map<unsigned int, unsigned int> BFS_course() const;
 	std::unordered_map<unsigned int, unsigned int> DFS_course() const;*/
@@ -146,6 +146,7 @@ public:
 	///-----------------------------A CODER----------------
 	std::unordered_map<Point*, std::list<Point*>> smaller_travel(const Point& _DepartPoint, bool reverse) const;//Djisktra algorithm to find the smallest distance between all points and show it. Reverse mode make choose the longest one
 
+
 	Graph Prim_algorithm(const Point& _DepartPoint) const;	//Return a partial Graph with all smallest connexion
 
 	//---------------GETTER----------------------------
@@ -165,7 +166,6 @@ protected:
 };
 
 
-	
 
 
 void get_path(Graph& _graph, std::vector <Path*>& _possible_link);

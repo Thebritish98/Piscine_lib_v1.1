@@ -4,37 +4,40 @@
 #include "main.h"
 class Link;
 
-class Path
-{
-public:
-	Path();
-	void add_link(Link* _link);
 
-	void reset()
-	{
-		m_path.clear();
-	}
-	std::list<Link*>& get_path_()
-	{
-		return m_path;
-	}
+    class Path
+     {
+         public:
+        Path();
+        ~Path();
+        void add_link(Link* lien);
+        float get_tot1() const
+        {
+            return cout_tot1;
+        }
+        float get_tot2() const
+        {
+            return cout_tot2;
+        }
+        void reset()
+        {
+            trace.clear();
+        }
+        int get_trace_size()
+        {
+           return  trace.size();
+        }
+         std::vector<Link*> get_trace()
+        {
+             return trace;
+        }
 
-	//--------------GETTER--------------
-	float get_sum_w_1()
-	{
-		return m_sumW1;
-	}
-	float get_sum_w_2()
-	{
-		return m_sumW2;
-	}
-	~Path();
-
-protected:
-	std::list<Link*> m_path;
-	float m_sumW1;
-	float m_sumW2;
+         private:
+        std::vector<Link*> trace;
+        float cout_tot1;
+        float cout_tot2;
 
 
-};
+
+     };
 #endif

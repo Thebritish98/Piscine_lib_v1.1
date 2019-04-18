@@ -3,7 +3,6 @@
 
 Path::Path()
 {
-
 }
 
 Path::~Path()
@@ -11,17 +10,16 @@ Path::~Path()
 
 }
 
-void Path::add_link(Link* _link)
+void  Path::add_link(Link* lien)
 {
-	unsigned int i;
-	m_path.push_back(_link);
-	Link* pt_link=m_path.front();
-	m_sumW1 = 0;
-	m_sumW2 = 0;
-	for (i = 0; i < m_path.size(); i++)
-	{
-		//pt_link = std::next(m_path.begin(), i);  comment faire que ça marche?
-		m_sumW1 += pt_link->get_cos1();
-		m_sumW2 += pt_link->get_cos2();
-	}
+    int i;
+    trace.push_back (lien);
+    cout_tot1=0;
+    cout_tot2=0;
+    for(i=0;i<trace.size();i++)
+    {
+        cout_tot1+=trace[i]->get_cos1();
+        cout_tot2+=trace[i]->get_cos2();
+    }
+
 }
