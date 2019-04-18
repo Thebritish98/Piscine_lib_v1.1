@@ -23,3 +23,15 @@ void  Path::add_link(Link* lien)
     }
 
 }
+
+void Path::afficher_path()
+{
+    int i,a,b;
+    for(i=0;i<trace.size();i++)
+    {
+        std::cout<<"si c'est pas 7 yolo"<<trace.size()<<std::endl;
+        a=trace[i]->get_id_a();
+        b=trace[i]->get_id_b();
+        std::cout<<"premier point"<<a<<"deuxiemepoint"<<b<<std::endl;
+    }
+}

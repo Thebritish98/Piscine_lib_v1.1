@@ -9,6 +9,9 @@ class Link;
      {
          public:
         Path();
+        Path(Path& _path_copy):trace{_path_copy.get_trace()},cout_tot1{_path_copy.get_tot1()},cout_tot2{_path_copy.get_tot2()}
+        {
+        }
         ~Path();
         void add_link(Link* lien);
         float get_tot1() const
@@ -31,6 +34,7 @@ class Link;
         {
              return trace;
         }
+        void afficher_path();
 
          private:
         std::vector<Link*> trace;
