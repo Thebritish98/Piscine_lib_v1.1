@@ -11,7 +11,7 @@ class Svgfile;
 class Coord
 {
 public:
-	Coord() :m_x{ 0 }, m_y{ 0 }
+	Coord() :m_x{ 0 }, m_y{ 0 } 
 	{}
 	Coord(short x, short y);
 	short get_x() const;//accesseur de m_x
@@ -31,7 +31,7 @@ class Link
 public:
 	Link(){}
 	Link(Link& _link_cop);
-	Link(unsigned int _id, float _cost1, float _cost2, unsigned int _a, unsigned int _b,Coord _mid_link,char _mode ); //ajout des paramètres de mode et de coord text
+	Link(unsigned int _id, float _cost1, float _cost2, unsigned int _a, unsigned int _b,Coord _mid_link,char _mode ); //ajout des paramÃ¨tres de mode et de coord text
 
 	//----------------GETTER-----------------------
 	float get_cos1()
@@ -144,7 +144,8 @@ public:
 	void DFS_course(unsigned int _StartingEdge) const;*/
 
 	///-----------------------------A CODER----------------
-//	std::unordered_map<Point*, std::list<Point*>> smaller_travel(const Point& _DepartPoint, bool reverse) const;//Djisktra algorithm to find the smallest distance between all points and show it. Reverse mode make choose the longest one
+	std::unordered_map<Point*, std::list<Point*>> smaller_travel(const Point& _DepartPoint, bool reverse) const;//Djisktra algorithm to find the smallest distance between all points and show it. Reverse mode make choose the longest one
+
 
 	Graph Prim_algorithm(const Point& _DepartPoint) const;	//Return a partial Graph with all smallest connexion
 
@@ -163,7 +164,6 @@ protected:
 	std::vector<Point*> m_points;
 	std::vector<Link*> m_links;
 };
-
 
 
 

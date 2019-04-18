@@ -27,7 +27,6 @@ Coord::~Coord()
 
 }
 
-
 //void pareto_verif(std::vector <Path*>& _possible_link) // Algo qui efface tous les chemins qui ne sont pas pareto optimo
 //{
 //	unsigned int  i, y;
@@ -73,10 +72,10 @@ Coord::~Coord()
 //					try_it.add_link(_graph.get_m_link()[j]);
 //				}
 //			}
-//			/// Verif que tous les sommets sont présent dans le chemin try it a terminé
-//			/// il faut en meme temps s'assurer qu'il n'y ait pas de boucle ce qui veut dire qu'il ne faut pas que les 2 id d'un lien soit déja présent dans le vecteur keep trying
+//			/// Verif que tous les sommets sont prÃ©sent dans le chemin try it a terminÃ©
+//			/// il faut en meme temps s'assurer qu'il n'y ait pas de boucle ce qui veut dire qu'il ne faut pas que les 2 id d'un lien soit dÃ©ja prÃ©sent dans le vecteur keep trying
 //			///pas manger depuis ce matin 4h donc je prend une pause
-//			/// après avoir fait la vérif si tout est bon on ajoute le chemin a _possible_link avec un pushback et est fini :!!!
+//			/// aprÃ¨s avoir fait la vÃ©rif si tout est bon on ajoute le chemin a _possible_link avec un pushback et est fini :!!!
 ////                    keep_trying.clear();
 ////                    verif1=0;
 ////                    verif2=0;
@@ -97,16 +96,16 @@ Coord::~Coord()
 	Graph::Graph(std::string _FileName)
 	{
 		std::string value;
-		std::ifstream file1{ _FileName + ".txt" };		//Ouvre le fichier .txt demandé
+		std::ifstream file1{ _FileName + ".txt" };		//Ouvre le fichier .txt demandÃ©
 		std::cout << "Quelle chiffre de fichier?";
 		std::cin >> value;								//On choisit ici quel fichier d epoids on veut ouvrir avec
-		std::ifstream file2{ _FileName + "_weights_" + value +".txt" };	//Ouverture du fichier cité au dessus
+		std::ifstream file2{ _FileName + "_weights_" + value +".txt" };	//Ouverture du fichier citÃ© au dessus
 		if (!file1 || !file2)
 			throw std::runtime_error("Impossible d'ouvrir en lecture " + _FileName +".txt ou "+ _FileName + "_weights_" + value + ".txt");	//lance une erreur si le fichier ne peux pas s'ouvrir car n'existe pas
 		if (file1.fail() || file2.fail())
 			throw std::runtime_error("Probleme lecture ordre du graphe");
 
-		//Création des variables necessaire à la récupération des coordonnées
+		//CrÃ©ation des variables necessaire Ã  la rÃ©cupÃ©ration des coordonnÃ©es
 		unsigned int NbPoints;
 		short x=0;
 		short y=0;
@@ -114,15 +113,15 @@ Coord::~Coord()
 		file1 >> NbPoints;
 
 
-		//création des sommets avec Coords///
-		for (unsigned int i = 0; i < NbPoints; i++) //Tant que tous les points ne sont pas ajoutés
+		//crÃ©ation des sommets avec Coords///
+		for (unsigned int i = 0; i < NbPoints; i++) //Tant que tous les points ne sont pas ajoutÃ©s
 		{
-			file1 >> id; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
-			file1 >> x; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
-			file1 >> y; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
+			file1 >> id; if (file1.fail()) throw std::runtime_error("Probleme de lecture des donnÃ©es");
+			file1 >> x; if (file1.fail()) throw std::runtime_error("Probleme de lecture des donnÃ©es");
+			file1 >> y; if (file1.fail()) throw std::runtime_error("Probleme de lecture des donnÃ©es");
 			m_points.push_back(new Point(id, x,y ) );
 		}
-		//Déclaration des variables nécessaire à la création des arrêtes//
+		//DÃ©claration des variables nÃ©cessaire Ã  la crÃ©ation des arrÃªtes//
 		unsigned int NbLinks;
 		unsigned int NbLinks2;
 		float weight1;
@@ -137,29 +136,28 @@ Coord::~Coord()
 		unsigned int id_B;
 		char mode;
 
-		file1 >> NbLinks; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
-		file2 >> NbLinks2; if (file2.fail()) throw std::runtime_error("Probleme de lecture des données");
-		file2 >> id; if (file2.fail()) throw std::runtime_error("Probleme de lecture des données");
+		file1 >> NbLinks; if (file1.fail()) throw std::runtime_error("Probleme de lecture des donnÃ©es");
+		file2 >> NbLinks2; if (file2.fail()) throw std::runtime_error("Probleme de lecture des donnÃ©es");
+		file2 >> id; if (file2.fail()) throw std::runtime_error("Probleme de lecture des donnÃ©es");
 
-		if (NbLinks != NbLinks2)//Si le nombre d'arrête du fichier 1 et 2 sont différentes alors on lance une erreur
-			throw std::runtime_error("Nombre d'arrete différents dans les fichiers");
+		if (NbLinks != NbLinks2)//Si le nombre d'arrÃªte du fichier 1 et 2 sont diffÃ©rentes alors on lance une erreur
+			throw std::runtime_error("Nombre d'arrete diffÃ©rents dans les fichiers");
 		for (unsigned int i = 0; i < NbLinks; i++)
 		{
-			file1 >> id; file2 >> id;//Trouver moyen de passer directement à la suite//
-			file1 >> id_A;//On récupère l'id du point de départ
-			file1 >> id_B;//On récupère l'id du point de destination
-			file2 >> weight1;//On récupère dans le deuxième fichier le premier poids
-			file2 >> weight2;//puis le deuxième
+			file1 >> id; file2 >> id;//Trouver moyen de passer directement Ã  la suite//
+			file1 >> id_A;//On rÃ©cupÃ¨re l'id du point de dÃ©part
+			file1 >> id_B;//On rÃ©cupÃ¨re l'id du point de destination
+			file2 >> weight1;//On rÃ©cupÃ¨re dans le deuxiÃ¨me fichier le premier poids
+			file2 >> weight2;//puis le deuxiÃ¨me
 
 			Point_A_x = m_points[id_A]->get_coord().get_x();
 			Point_A_y = m_points[id_A]->get_coord().get_y();
 			Point_B_x = m_points[id_B]->get_coord().get_x();
 			Point_B_y = m_points[id_B]->get_coord().get_y();
-
-				//Calcul avec la différence des coord id_A et id_B lpour avoir coord_text
+				//Calcul avec la diffÃ©rence des coord id_A et id_B lpour avoir coord_text
 				mid_x_link = (Point_A_x + Point_B_x) / 2;
 				mid_y_link = (Point_A_y + Point_B_y) / 2;
-				//Recherche du mode de l'arrête:
+				//Recherche du mode de l'arrÃªte:
 
 				if (Point_A_x==Point_B_x)
 				{
@@ -169,7 +167,7 @@ Coord::~Coord()
 				{
 					mode = 'h';
 				}
-				else
+        else
 				{
 					if ((Point_A_x<Point_B_x && Point_A_y < Point_B_y)||(Point_B_x < Point_A_x && Point_B_y < Point_A_y))
 					{
@@ -180,25 +178,19 @@ Coord::~Coord()
 						mode = 'r';
 					}
 				}
-
-
 				Link* ptLink = new Link(id, weight1, weight2, id_A, id_B, {mid_x_link,mid_y_link}, mode);
-			m_links.push_back(ptLink  ); //On aoute toutes les valeurs récupérer sur l'arrête dans la map comprise dans le graphe
+			m_links.push_back(ptLink  ); //On aoute toutes les valeurs rÃ©cupÃ©rer sur l'arrÃªte dans la map comprise dans le graphe
 
-			//Ajout des voisins dans les données des points
+			//Ajout des voisins dans les donnÃ©es des points
 			m_points[id_A]->addNeighboor(ptLink, id_B);//Ajout de la liaison entre A et B
 			m_points[id_B]->addNeighboor(ptLink, id_A);//Ajout de la liaison entre B et A
 		}
 		file1.close();
 		file2.close();
-
-	}
-
-
 	void Graph::show_svg(Svgfile& _out,bool _show_info)
 	{
 		/**
-		Affiche le svg du graphe, update necessaire: ajouter un moyen de donner le point de référence depuis lequel tracer le graphe / Donner les coûts des arrêtes
+		Affiche le svg du graphe, update necessaire: ajouter un moyen de donner le point de rÃ©fÃ©rence depuis lequel tracer le graphe / Donner les coÃ»ts des arrÃªtes
 		**/
 		for (const auto& it : m_points)
 		{
@@ -250,8 +242,6 @@ Coord::~Coord()
 	{
 		m_neighboors.insert({ _link,_id });
 	}
-
-
 
 
 
@@ -339,14 +329,13 @@ std::unordered_map<unsigned int, unsigned int> Point::DFS_course() const
 		This function do the Djisktra's algorithm in smallest or biggest travel distance, return an unordered map with The depart point and the list of all points to travel through
 		**/
 		//{
-			//Declaration d'une unordered map avec id et unsigned int (valeur des arêtes)
+			//Declaration d'une unordered map avec id et unsigned int (valeur des arÃªtes)
 		//}
 
 		/*Graph Graph::Prim_algorithm(const Point& _DepartPoint) const
 		{
 			//return Graph();
 		}
-
 
 
 
