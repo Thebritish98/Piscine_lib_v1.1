@@ -3,6 +3,7 @@
 
 #include "main.h"
 class Graph;
+class Coord;
 constexpr char defcol[] = "black";
 
 class Svgfile
@@ -17,8 +18,8 @@ public:
 	void addText(double x, double y, std::string text, std::string color = defcol);
 	void addText(double x, double y, double val, std::string color = defcol);
 
-	void addGraph(); // Ajoute le graphe affichant le résultat
-	void addModel(Graph& _graph); //Graphe d'entrée ou de sortie, le but étant de choisir la dimension max et le ppoint de départ du graphe
+	void addGraph(std::unordered_map<Coord*,bool> _data, double _x, double _y); // Ajoute le graphe affichant le résultat
+	void addModel(Graph& _graph, double _x, double _y ,bool _show_info=true,float _coef=1.0); //Graphe d'entrée ou de sortie, le but étant de choisir la dimension max et le ppoint de départ du graphe
 
 	static std::string makeRGB(int r, int g, int b);
 

@@ -20,6 +20,7 @@
 #include "Display.h"
 #include "Graphe.h"
 #include "Path.h"
+#include "pareto.h"
 
 namespace util 
 {

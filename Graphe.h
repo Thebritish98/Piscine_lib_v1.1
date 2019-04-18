@@ -17,6 +17,11 @@ public:
 	short get_x() const;//accesseur de m_x
 	short get_y() const;//accesseur de m_y
 	void mod_c(short _x_add,short _y_add); //add value to x and y
+	void set_c(short _x, short _y)
+	{
+		m_x = _x;
+		m_y = _y;
+	}
 	~Coord();
 
 protected:
@@ -94,10 +99,6 @@ public:
 	Point(unsigned int _id,short _x , short _y);
 	void addNeighboor( Link* _link, unsigned int _id);
 
-				/*A REMETTRE
-
-	std::unordered_map<unsigned int, unsigned int> BFS_course() const;
-	std::unordered_map<unsigned int, unsigned int> DFS_course() const;*/
 
 	//-----------------------GETTER---------------------------
 	unsigned int get_id() const
@@ -134,20 +135,10 @@ class Graph
 {
 public:
 	Graph(std::string _FileName);
-
-	void show_svg(Svgfile& _out, bool _show_info=true);
+	Graph(Path& _copy_path, Graph& _base_graph);
 	~Graph();
-	/*			A VOIR SI REMETTRE
-	void BFS_show(unsigned int _StartingEdge) const;
-	void DFS_show(unsigned int _StartingEdge) const;
-	void BFS_course(unsigned int _StartingEdge) const;
-	void DFS_course(unsigned int _StartingEdge) const;*/
 
-	///-----------------------------A CODER----------------
-	std::unordered_map<Point*, std::list<Point*>> smaller_travel(const Point& _DepartPoint, bool reverse) const;//Djisktra algorithm to find the smallest distance between all points and show it. Reverse mode make choose the longest one
-
-
-	Graph Prim_algorithm(const Point& _DepartPoint) const;	//Return a partial Graph with all smallest connexion
+	std::unordered_map<unsigned int, Path> Djisktra_algo(unsigned int _departure_point, bool _reverse = false);
 
 	//---------------GETTER----------------------------
 	std::vector<Point*> get_m_points()

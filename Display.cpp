@@ -103,13 +103,60 @@ void Svgfile::add_to_text(std::string _added_text)
 	m_ostrm << _added_text;
 }
 
-void Svgfile::addGraph()
+void Svgfile::addGraph(std::unordered_map<Coord*, bool> _data,double x, double y)
 {
-
+	//moyen de faire en sorte de savoir ou placer les points
 }
-void Svgfile::addModel(Graph& _graph)
-{
 
+void Svgfile::addModel(Graph& _graph, double _x, double _y, bool _show_info, float _coef)
+{
+	Coord coord_min(_graph.get_m_points()[0]->get_coord().get_x(), _graph.get_m_points()[0]->get_coord().get_y());
+	//calcul de rapport pour la taille des arrêtes
+	//search smallest coord
+	for (size_t i = 0; i < _graph.get_m_points().size(); i++)
+	{
+		if (_graph.get_m_points()[i]->get_coord().get_x()<coord_min.get_x())
+		{
+			coord_min.set_c(_graph.get_m_points()[i]->get_coord().get_x(),coord_min.get_y());
+		}
+		if (_graph.get_m_points()[i]->get_coord().get_y() < coord_min.get_y())
+		{
+			coord_min.set_c(coord_min.get_x(),_graph.get_m_points()[i]->get_coord().get_y());
+		}
+	}
+	std::cout << "minimun: " << coord_min.get_x() << ";" << coord_min.get_y() << std::endl;
+
+	for (const auto& it : _graph.get_m_points())
+	{
+		this->addCircle(it->get_coord().get_x() - coord_min.get_x() + _x, it->get_coord().get_y() - coord_min.get_y() + _y, 6);
+	}
+	for (const auto& at : _graph.get_m_link())
+	{
+		this->addLine(_graph.get_m_points()[at->get_id_a()]->get_coord().get_x() - coord_min.get_x() + _x, _graph.get_m_points()[at->get_id_a()]->get_coord().get_y() - coord_min.get_y() + _y, _graph.get_m_points()[at->get_id_b()]->get_coord().get_x() - coord_min.get_x() + _x, _graph.get_m_points()[at->get_id_b()]->get_coord().get_y() - coord_min.get_y() + _y);
+		if (_show_info)
+		{
+			at->mod_coord_mid(-coord_min.get_x() + _x, -coord_min.get_y() + _y);
+			switch (at->get_mode())
+			{
+			case 'v':
+				at->mod_coord_mid(-25, 0);
+				break;
+			case 'h':
+				at->mod_coord_mid(0  , -10 );
+				break;
+			case 'r':
+				at->mod_coord_mid(-10 , -10 );
+				break;
+			case 'l':
+				at->mod_coord_mid(5 , -10 );
+				break;
+			default:
+				break;
+			}
+			this->addText(at->get_coord_mid().get_x() , at->get_coord_mid().get_y() , at->weight_show() );
+
+		}
+	}
 }
 
 
@@ -149,8 +196,8 @@ void BoardResult::give_results(Svgfile& _out, Graph& _graph) const
 {
 
 	std::ifstream file("design_template/" + m_mode + ".txt");
-	_out.addModel(_graph);
-	_out.addGraph();
+	//_out.addModel(_graph);
+	//_out.addGraph();
 	file.close();
 }
 
