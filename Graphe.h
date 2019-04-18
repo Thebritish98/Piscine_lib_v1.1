@@ -167,8 +167,8 @@ protected:
 
 
 
-
+/*
 void get_path(Graph& _graph, std::vector <Path*>& _possible_link);
-void pareto_verif(std::vector <Path*>& _possible_link);
+void pareto_verif(std::vector <Path*>& _possible_link);*/
 #endif //LIB_THG
 

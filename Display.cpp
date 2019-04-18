@@ -97,3 +97,67 @@ std::string Svgfile::makeRGB(int r, int g, int b)
 	oss << "rgb(" << r << "," << g << "," << b << ")";
 	return oss.str();
 }
+
+void Svgfile::add_to_text(std::string _added_text)
+{
+	m_ostrm << _added_text;
+}
+
+void Svgfile::addGraph()
+{
+
+}
+void Svgfile::addModel(Graph& _graph)
+{
+
+}
+
+
+
+
+
+
+		//-----------------Board Result--------------------
+BoardResult::BoardResult():m_mode("test")
+{
+	this->init_template();
+}
+
+void BoardResult::init_template()
+{
+	std::string tmp;
+	m_pattern.erase();
+	std::ifstream file("design_template/" + m_mode + ".txt");
+	if (file.is_open())
+	{
+		while (getline(file, tmp))
+		{
+			m_pattern += tmp + "\n";
+		}
+	}
+	else
+	{
+		std::cout << "\nImpossible d'ouvrir le fichier " << m_mode + ".txt" << std::endl;
+	}
+	file.close();
+}
+void BoardResult::set_template(Svgfile& _out)
+{
+	_out.add_to_text(m_pattern);
+}
+void BoardResult::give_results(Svgfile& _out, Graph& _graph) const
+{
+
+	std::ifstream file("design_template/" + m_mode + ".txt");
+	_out.addModel(_graph);
+	_out.addGraph();
+	file.close();
+}
+
+void BoardResult::set_mode()
+{
+}
+
+BoardResult::~BoardResult()
+{
+}
