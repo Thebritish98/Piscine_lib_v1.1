@@ -4,7 +4,6 @@
 #include "main.h"
 class Link;
 
-
 	class Path
 	 {
 		 public:
@@ -42,4 +41,3 @@ class Link;
 
 
 	 };
-#endif

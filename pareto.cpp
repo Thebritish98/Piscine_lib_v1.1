@@ -37,7 +37,7 @@ void get_path(Graph& graph, std::vector<Path*>& chemin_possible)
 
 			try_it.reset();
 
-			for (j = 0; j < chaine.size(); j++)/// Creer le path en arrette et non en booléen
+			for (j = 0; j < chaine.size(); j++)/// Creer le path en arrette et non en boolÃ©en
 			{
 				//std::cout<<chaine.size()<<std::endl;
 				if (chaine[j] == '1')
@@ -73,7 +73,7 @@ void get_path(Graph& graph, std::vector<Path*>& chemin_possible)
 			}
 			if (verif1 != 1 || verif2 != 1)
 			{
-				/** Tu ajoutes try it la valeur de try it qui est une variable déclaré dans la fonction mais qui disparais après alors ton chemin pointe juste sur une adresse mémoire**/
+				/** Tu ajoutes try it la valeur de try it qui est une variable dÃ©clarÃ© dans la fonction mais qui disparais aprÃ¨s alors ton chemin pointe juste sur une adresse mÃ©moire**/
 				chemin_possible.push_back(new Path(try_it));  /// si il ne l'est pas l'ajoute aux chemin possible pour pareto
 				//chemin_possible.push_back(&try_it);  /// si il ne l'est pas l'ajoute aux chemin possible pour pareto
 
@@ -85,7 +85,7 @@ void get_path(Graph& graph, std::vector<Path*>& chemin_possible)
 	// std::cout<< "test1 ok "<< nbtour<<std::endl;
 	 // std::cout<< "testzrafvg ok "<< nb2tour<<std::endl;
  //     std::cout<<"ajout_try_it"<<nbtour3<<std::endl;
-   //  std::cout<<" nombre d'input a la verif d'après"<<chemin_possible.size()<<std::endl;
+   //  std::cout<<" nombre d'input a la verif d'aprÃ¨s"<<chemin_possible.size()<<std::endl;
 	// std::cout<<"tot 1 ici" << chemin_possible[0]->get_tot1()<<std::endl; /// ici est toujours bon
 }
 

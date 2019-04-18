@@ -111,7 +111,7 @@ void Svgfile::addGraph(std::unordered_map<Coord*, bool> _data,double x, double y
 void Svgfile::addModel(Graph& _graph, double _x, double _y, bool _show_info, float _coef)
 {
 	Coord coord_min(_graph.get_m_points()[0]->get_coord().get_x(), _graph.get_m_points()[0]->get_coord().get_y());
-	//calcul de rapport pour la taille des arrêtes
+	//calcul de rapport pour la taille des arrï¿½tes
 	//search smallest coord
 	for (size_t i = 0; i < _graph.get_m_points().size(); i++)
 	{
