@@ -18,7 +18,7 @@ public:
 	void addText(double x, double y, std::string text, std::string color = defcol,std::string _font_size="20px",std::string _font= "sans - serif");
 	void addText(double x, double y, double val, std::string color = defcol);
 
-	void addGraph(std::unordered_map<Coord*,bool> _data, double _x, double _y); // Ajoute le graphe affichant le résultat
+	void addGraph(std::vector<Coord>& _all_sol, std::vector<Coord>& _valid_sol, double _x, double _y, unsigned int _space=5); // Ajoute le graphe affichant le résultat
 	void addModel(Graph& _graph, double _x, double _y , std::string _color=defcol,bool _show_info=true,float _coef=1.0); //Graphe d'entrée ou de sortie, le but étant de choisir la dimension max et le ppoint de départ du graphe
 
 	static std::string makeRGB(int r, int g, int b);

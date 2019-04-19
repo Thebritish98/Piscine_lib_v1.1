@@ -104,9 +104,44 @@ void Svgfile::add_to_text(std::string _added_text)
 	m_ostrm << _added_text;
 }
 
-void Svgfile::addGraph(std::unordered_map<Coord*, bool> _data,double x, double y)
+void Svgfile::addGraph(std::vector<Coord>& _all_sol,std::vector<Coord>& _valid_sol,double _x, double _y,unsigned int _space)
 {
 	//moyen de faire en sorte de savoir ou placer les points
+	std::string  color;
+	float space_x,space_y;
+	Coord coord_max(0, 0);
+	this->addLine(_x,_y,_x,_y-387.5,"red");
+	this->addLine(_x,_y,_x+540,_y,"red");
+	for (const auto& it: _all_sol)
+	{
+		if (it.get_x()>coord_max.get_x())
+		{
+			coord_max.set_c(it.get_x(), coord_max.get_y());
+		}
+		if (it.get_y() > coord_max.get_y())
+		{
+			coord_max.set_c(coord_max.get_x(), it.get_y());
+		}
+	}
+	space_x = (520 / coord_max.get_x());
+	space_y = (360 / coord_max.get_y());
+	for (unsigned int x = _space; _x + (space_x * x) < _x+520; x += _space)
+	{
+		this->addLine(_x + (space_x * x), _y+5, _x + (space_x * x), _y+10, "white");
+	}
+	for (unsigned int y = _space; _y - (space_y * y) > _y-387.5; y += _space)
+	{
+		this->addLine(_x-5 , _y- (space_y * y), _x-10, _y - (space_y * y), "white");
+	}
+
+	for (const auto& at : _all_sol)
+	{
+		this->addCircle(_x + (space_x * at.get_x()), _y - (space_y * at.get_y()), 4, "red");
+	}
+	for (const auto& at : _valid_sol)
+	{
+		this->addCircle(_x + (space_x * at.get_x()), _y - (space_y * at.get_y()), 4, "green");
+	}
 }
 
 void Svgfile::addModel(Graph& _graph, double _x, double _y,std::string _color, bool _show_info, float _coef)
@@ -125,13 +160,12 @@ void Svgfile::addModel(Graph& _graph, double _x, double _y,std::string _color, b
 			coord_min.set_c(coord_min.get_x(),_graph.get_m_points()[i]->get_coord().get_y());
 		}
 	}
-	std::cout << "minimun: " << coord_min.get_x() << ";" << coord_min.get_y() << std::endl;
 
 	for (const auto& it : _graph.get_m_points())
 	{
-		this->addCircle(it->get_coord().get_x() - coord_min.get_x() + _x, it->get_coord().get_y() - coord_min.get_y() + _y, 10,_color);
-		if(_show_info)
-			this->addText(it->get_coord().get_x() - coord_min.get_x() + _x-5, it->get_coord().get_y() - coord_min.get_y() + _y+5,it->get_id(),"red");
+		this->addCircle(it->get_coord().get_x() - coord_min.get_x() + _x, it->get_coord().get_y() - coord_min.get_y() + _y, 5,_color);
+		/*if(_show_info)
+			this->addText(it->get_coord().get_x() - coord_min.get_x() + _x-5, it->get_coord().get_y() - coord_min.get_y() + _y+5,it->get_id(),"red");*/
 	}
 	for (const auto& at : _graph.get_m_link())
 	{
@@ -168,7 +202,7 @@ void Svgfile::addModel(Graph& _graph, double _x, double _y,std::string _color, b
 
 
 		//-----------------Board Result--------------------
-BoardResult::BoardResult():m_mode("high_tech")
+BoardResult::BoardResult():m_mode("retro_turbo")
 {
 	this->init_template();
 }
@@ -205,12 +239,17 @@ void BoardResult::give_results(Svgfile& _out, Graph& _graph,std::string _filenam
 		color = "white";
 		font = "Myriad-Pro";
 	}
+	else if (m_mode=="retro_turbo")
+	{
+		color = "#326775";
+		//font = "";
+	}
 	else
 		color = "red";
 	this->set_template(_out);
-	_out.addText(112, 75, _filename, color, "80px", font);
+	_out.addText(114, 77, _filename, color, "80px", font);
+	_out.addText(112, 75, _filename, "url(#back1)", "80px", font);
 	_out.addModel(_graph,140,110,color);
-	//Add graphe?//
 }
 
 void BoardResult::set_mode()
