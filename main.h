@@ -15,7 +15,6 @@
 #include <queue>
 #include <set>
 #include <Windows.h>
-#include <iterator>
 
 #include "Display.h"
 #include "Graphe.h"
@@ -26,7 +25,6 @@ namespace util
 {
 
 	void exec(LPCSTR FileName);
-	bool stay();
 	
 }
 

@@ -28,20 +28,25 @@ Coord::~Coord()
 }
 
 	//------------------GRAPH------------------
+
+Graph::Graph(Path& _copy_path, Graph& _base_graph) :m_points{ _base_graph.get_m_points() }, m_links{_copy_path.get_trace()}
+{
+}
+
 Graph::Graph(std::string _FileName)
 {
 	_FileName = "ressource/" + _FileName; //add files name in directory path to ensure finding the files
 	std::string value;
-	std::ifstream file1{ _FileName + ".txt" };		//Ouvre le fichier .txt demandé
+	std::ifstream file1{ _FileName + ".txt" };		//Ouvre le fichier .txt demandÃ©
 	std::cout << "Quelle chiffre de fichier?";
 	std::cin >> value;								//On choisit ici quel fichier de poids on veut ouvrir avec
-	std::ifstream file2{ _FileName + "_weights_" + value + ".txt" };	//Ouverture du fichier cité au dessus
+	std::ifstream file2{ _FileName + "_weights_" + value + ".txt" };	//Ouverture du fichier citÃ© au dessus
 	if (!file1 || !file2)
 		throw std::runtime_error("Impossible d'ouvrir en lecture " + _FileName + ".txt ou " + _FileName + "_weights_" + value + ".txt");	//lance une erreur si le fichier ne peux pas s'ouvrir car n'existe pas
 	if (file1.fail() || file2.fail())
 		throw std::runtime_error("Probleme lecture ordre du graphe");
 
-	//Création des variables necessaire à la récupération des coordonnées
+	//CrÃ©ation des variables necessaire Ã  la rÃ©cupÃ©ration des coordonnÃ©es
 	unsigned int NbPoints;
 	short x = 0;
 	short y = 0;
@@ -49,15 +54,15 @@ Graph::Graph(std::string _FileName)
 	file1 >> NbPoints;
 
 
-	//création des sommets avec Coords///
-	for (unsigned int i = 0; i < NbPoints; i++) //Tant que tous les points ne sont pas ajoutés
+	//crÃ©ation des sommets avec Coords///
+	for (unsigned int i = 0; i < NbPoints; i++) //Tant que tous les points ne sont pas ajoutÃ©s
 	{
-		file1 >> id; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
-		file1 >> x; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
-		file1 >> y; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
+		file1 >> id; if (file1.fail()) throw std::runtime_error("Probleme de lecture des donnÃ©es");
+		file1 >> x; if (file1.fail()) throw std::runtime_error("Probleme de lecture des donnÃ©es");
+		file1 >> y; if (file1.fail()) throw std::runtime_error("Probleme de lecture des donnÃ©es");
 		m_points.push_back(new Point(id, x, y));
 	}
-	//Déclaration des variables nécessaire à la création des arrêtes//
+	//DÃ©claration des variables nÃ©cessaire Ã  la crÃ©ation des arrÃªtes//
 	unsigned int NbLinks;
 	unsigned int NbLinks2;
 	float weight1;
@@ -72,66 +77,140 @@ Graph::Graph(std::string _FileName)
 	unsigned int id_B;
 	char mode;
 
-	file1 >> NbLinks; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
-	file2 >> NbLinks2; if (file2.fail()) throw std::runtime_error("Probleme de lecture des données");
-	file2 >> id; if (file2.fail()) throw std::runtime_error("Probleme de lecture des données");
+	file1 >> NbLinks; if (file1.fail()) throw std::runtime_error("Probleme de lecture des donnÃ©es");
+	file2 >> NbLinks2; if (file2.fail()) throw std::runtime_error("Probleme de lecture des donnÃ©es");
+	file2 >> id; if (file2.fail()) throw std::runtime_error("Probleme de lecture des donnÃ©es");
 
-	if (NbLinks != NbLinks2)//Si le nombre d'arrête du fichier 1 et 2 sont différentes alors on lance une erreur
-		throw std::runtime_error("Nombre d'arrete différents dans les fichiers");
+	if (NbLinks != NbLinks2)//Si le nombre d'arrÃªte du fichier 1 et 2 sont diffÃ©rentes alors on lance une erreur
+		throw std::runtime_error("Nombre d'arrete diffÃ©rents dans les fichiers");
 	for (unsigned int i = 0; i < NbLinks; i++)
 	{
-		file1 >> id; file2 >> id;//Trouver moyen de passer directement à la suite//
-		file1 >> id_A;//On récupère l'id du point de départ
-		file1 >> id_B;//On récupère l'id du point de destination
-		file2 >> weight1;//On récupère dans le deuxième fichier le premier poids
-		file2 >> weight2;//puis le deuxième
+		std::string value;
+		std::ifstream file1{ _FileName + ".txt" };		//Ouvre le fichier .txt demandé
+		std::cout << "Quelle chiffre de fichier?";
+		std::cin >> value;								//On choisit ici quel fichier d epoids on veut ouvrir avec
+		std::ifstream file2{ _FileName + "_weights_" + value +".txt" };	//Ouverture du fichier cité au dessus
+		if (!file1 || !file2)
+			throw std::runtime_error("Impossible d'ouvrir en lecture " + _FileName +".txt ou "+ _FileName + "_weights_" + value + ".txt");	//lance une erreur si le fichier ne peux pas s'ouvrir car n'existe pas
+		if (file1.fail() || file2.fail())
+			throw std::runtime_error("Probleme lecture ordre du graphe");
 
-		Point_A_x = m_points[id_A]->get_coord().get_x();
-		Point_A_y = m_points[id_A]->get_coord().get_y();
-		Point_B_x = m_points[id_B]->get_coord().get_x();
-		Point_B_y = m_points[id_B]->get_coord().get_y();
-		//Calcul avec la différence des coord id_A et id_B lpour avoir coord_text
-		mid_x_link = (Point_A_x + Point_B_x) / 2;
-		mid_y_link = (Point_A_y + Point_B_y) / 2;
-		//Recherche du mode de l'arrête:
+		//Création des variables necessaire à la récupération des coordonnées
+		unsigned int NbPoints;
+		short x=0;
+		short y=0;
+		unsigned int id;
+		file1 >> NbPoints;
 
-		if (Point_A_x == Point_B_x)
-		{
-			mode = 'v';
-		}
-		else if (Point_A_y == Point_B_y)
-		{
-			mode = 'h';
-		}
-		else
-		{
-			if ((Point_A_x < Point_B_x && Point_A_y < Point_B_y) || (Point_B_x < Point_A_x && Point_B_y < Point_A_y))
-			{
-				mode = 'l';
-			}
-			else
-			{
-				mode = 'r';
-			}
-		}
-		Link* ptLink = new Link(id, weight1, weight2, id_A, id_B, { mid_x_link,mid_y_link }, mode);
-		m_links.push_back(ptLink); //On aoute toutes les valeurs récupérer sur l'arrête dans la map comprise dans le graphe
 
-		//Ajout des voisins dans les données des points
-		m_points[id_A]->addNeighboor(ptLink, id_B);//Ajout de la liaison entre A et B
-		m_points[id_B]->addNeighboor(ptLink, id_A);//Ajout de la liaison entre B et A
+		//création des sommets avec Coords///
+		for (unsigned int i = 0; i < NbPoints; i++) //Tant que tous les points ne sont pas ajoutés
+		{
+			file1 >> id; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
+			file1 >> x; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
+			file1 >> y; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
+			m_points.push_back(new Point(id, x,y ) );
+		}
+		//Déclaration des variables nécessaire à la création des arrêtes//
+		unsigned int NbLinks;
+		unsigned int NbLinks2;
+		float weight1;
+		float weight2;
+		short mid_x_link=0;
+		short mid_y_link=0;
+		short Point_A_x;
+		short Point_A_y;
+		short Point_B_x;
+		short Point_B_y;
+		unsigned int id_A;
+		unsigned int id_B;
+		char mode;
+
+		file1 >> NbLinks; if (file1.fail()) throw std::runtime_error("Probleme de lecture des données");
+		file2 >> NbLinks2; if (file2.fail()) throw std::runtime_error("Probleme de lecture des données");
+		file2 >> id; if (file2.fail()) throw std::runtime_error("Probleme de lecture des données");
+
+		if (NbLinks != NbLinks2)//Si le nombre d'arrête du fichier 1 et 2 sont différentes alors on lance une erreur
+			throw std::runtime_error("Nombre d'arrete différents dans les fichiers");
+		for (unsigned int i = 0; i < NbLinks; i++)
+		{
+			file1 >> id; file2 >> id;//Trouver moyen de passer directement à la suite//
+			file1 >> id_A;//On récupère l'id du point de départ
+			file1 >> id_B;//On récupère l'id du point de destination
+			file2 >> weight1;//On récupère dans le deuxième fichier le premier poids
+			file2 >> weight2;//puis le deuxième
+
+			Point_A_x = m_points[id_A]->get_coord().get_x();
+			Point_A_y = m_points[id_A]->get_coord().get_y();
+			Point_B_x = m_points[id_B]->get_coord().get_x();
+			Point_B_y = m_points[id_B]->get_coord().get_y();
+
+				//Calcul avec la différence des coord id_A et id_B lpour avoir coord_text
+				mid_x_link = (Point_A_x + Point_B_x) / 2;
+				mid_y_link = (Point_A_y + Point_B_y) / 2;
+				//Recherche du mode de l'arrête:
+
+				if (Point_A_x==Point_B_x)
+				{
+					mode = 'v';
+				}
+				else if (Point_A_y == Point_B_y)
+				{
+					mode = 'h';
+				}
+				else
+				{
+					if ((Point_A_x<Point_B_x && Point_A_y < Point_B_y)||(Point_B_x < Point_A_x && Point_B_y < Point_A_y))
+					{
+						mode = 'l';
+					}
+					else
+					{
+						mode = 'r';
+					}
+				}
+
+
+				Link* ptLink = new Link(id, weight1, weight2, id_A, id_B, {mid_x_link,mid_y_link}, mode);
+			m_links.push_back(ptLink  ); //On aoute toutes les valeurs récupérer sur l'arrête dans la map comprise dans le graphe
+
+			//Ajout des voisins dans les données des points
+			m_points[id_A]->addNeighboor(ptLink, id_B);//Ajout de la liaison entre A et B
+			m_points[id_B]->addNeighboor(ptLink, id_A);//Ajout de la liaison entre B et A
+		}
+		file1.close();
+		file2.close();
+
 	}
-	file1.close();
-	file2.close();
-}
 
-Graph::Graph(Path& _copy_path, Graph& _base_graph) :m_points{ _base_graph.get_m_points() }, m_links{_copy_path.get_trace()}
-{
-}
 
-Graph::~Graph()
-{
-}
+	Graph::~Graph()
+	{
+	}
+
+
+
+
+	//------------------POINT------------------
+	Point::Point(unsigned int _id, short _x, short _y) :m_id{ _id }, m_Coord {_x,_y}
+	{
+	}
+	void Point::addNeighboor( Link* _link, unsigned int _id)
+		/**
+		Ajout de voisin dans la liste
+		**/
+	{
+		m_neighboors.insert({ _link,_id });
+	}
+
+
+
+
+
+	Point::~Point()
+	{
+	}
+
 
 Path Graph::Djisktra_for_path(Graph& _graph)
 {
