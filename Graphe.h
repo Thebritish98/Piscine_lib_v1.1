@@ -125,6 +125,7 @@ protected:
 	std::unordered_map<Link* , unsigned int> m_neighboors;
 
 	unsigned int m_id;
+	unsigned int m_marked;
 
 	Coord m_Coord;
 };

@@ -9,29 +9,30 @@ int main()
 		/*MAIN PROCESS*/
 		Svgfile svgout;
 		BoardResult testboard;
-		testboard.init_template();
 		std::string Name_File;
 		std::cout << "Nom du modele:";
 		std::cin >> Name_File;
 		Graph test(Name_File);
-		testboard.set_template(svgout);
+		testboard.give_results(svgout, test,Name_File);
 
-		std::vector<Path*> chemin_vec;
+		/*std::vector<Path*> chemin_vec;
 		get_path(test, chemin_vec);
 		std::cout << "total chemin possible i 1 " << chemin_vec[0]->get_tot1(); /// ici me semble bizarre
-		pareto_verif(chemin_vec);
+		pareto_verif(chemin_vec);*/
+
+
 		/*for (size_t i = 0; i < chemin_vec.size(); i++)
 			chemin_vec[i]->afficher_path();*/
 
 
 
 		end = true;
-		std::vector<Graph*> graph_vec;
+		/*std::vector<Graph*> graph_vec;
 		for (size_t i = 0; i < chemin_vec.size(); i++)
 		{
 			graph_vec.push_back(new Graph(*chemin_vec[i],test));
-			svgout.addModel(*graph_vec[i],i*200+100,100);
-		}
+			svgout.addModel(*graph_vec[i],i*200+100,100,"white");
+		}*/
 		util::exec("output.svg");
 
 
