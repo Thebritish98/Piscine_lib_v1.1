@@ -212,14 +212,16 @@ Graph::Graph(std::string _FileName)
 	}
 
 
-std::unordered_map<unsigned int, Path> Graph::Djisktra_algo(unsigned int _departure_point,bool _reverse)
+Path Graph::Djisktra_for_path(Graph& _graph)
 {
-	std::unordered_map<unsigned int, Path> returned_value;
-	Point* pt_point=m_points[_departure_point];
-	//std::unordered_map<unsigned int
-
-	return returned_value;
+	Path test;
+	return test;
 }
+
+void Graph::Djisktra_for_weight(Graph& _graph)
+{
+}
+
 
 
 //------------------POINT------------------

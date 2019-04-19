@@ -139,8 +139,8 @@ public:
 	Graph(Path& _copy_path, Graph& _base_graph);
 	~Graph();
 
-
-	std::unordered_map<unsigned int, Path> Djisktra_algo(unsigned int _departure_point, bool _reverse = false);
+	Path Djisktra_for_path(Graph& _graph);
+	void Djisktra_for_weight(Graph& _graph);
 
 	//---------------GETTER----------------------------
 	std::vector<Point*> get_m_points()

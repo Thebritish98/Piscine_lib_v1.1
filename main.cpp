@@ -8,12 +8,28 @@ int main()
 	{
 		/*MAIN PROCESS*/
 		Svgfile svgout;
+		Coord A(20, 15);
+		Coord B(15, 15);
+		Coord C(10, 15);
+		Coord D(5, 15);
+		Coord E(20, 5);
+		std::vector<Coord> ZA;
+		std::vector<Coord> ZB;
+		ZA.push_back(A);
+		ZA.push_back(B);
+		ZA.push_back(C);
+		ZA.push_back(D);
+		ZA.push_back(E);
+		ZB.push_back(A);
+		ZB.push_back(D);
+		ZB.push_back(E);
 		BoardResult testboard;
 		std::string Name_File;
 		std::cout << "Nom du modele:";
 		std::cin >> Name_File;
 		Graph test(Name_File);
 		testboard.give_results(svgout, test,Name_File);
+		svgout.addGraph(ZA, ZB, 840, 500); 
 
 		/*std::vector<Path*> chemin_vec;
 		get_path(test, chemin_vec);

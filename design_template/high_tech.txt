@@ -52,9 +52,6 @@
   <rect x="810" y="82.5" width="600" height="450" style="fill:#090F24;" />
   <path d="M810 82.5 h200 h-200 v150 M810 532.5 h200 h-200 v-150 M1410 82.5 h-200 h200 v150 M1410 532.5 h-200 h200 v-150 "  stroke="#107C88"  stroke-width="5" /> 
   <circle cx="840" cy="500" r="3" fill="blue"/>
-  <line x1="840" y1="500" x2="840" y2="112.5" style="stroke:red;stroke-width:3"/>
-  <line x1="840" y1="500" x2="1380" y2="500" style="stroke:red;stroke-width:3"/>
-
   //*Result models place *//
   <rect x="210" y="607.5" width="1100" height="175" style="fill:#090F24;" />
   <rect x="210" y="607.5" width="1100" height="175" style="fill:#107C88; opacity:0.5" />
