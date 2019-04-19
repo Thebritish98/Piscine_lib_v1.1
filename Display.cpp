@@ -10,8 +10,7 @@ const std::string svgEnding = "\n\n</svg>\n";
 
 std::set<std::string> Svgfile::s_openfiles;
 
-Svgfile::Svgfile(std::string _filename, int _width, int _height) :
-	m_filename{ _filename }, m_width{ _width }, m_height{ _height }
+Svgfile::Svgfile(std::string _filename, int _width, int _height) :m_filename{ _filename }, m_width{ _width }, m_height{ _height }
 {
 
 	if (s_openfiles.count(m_filename))
@@ -74,12 +73,14 @@ void Svgfile::addLine(double x1, double y1, double x2, double y2, std::string co
 		<< "/>\n";
 }
 
-void Svgfile::addText(double x, double y, std::string text, std::string color)
+void Svgfile::addText(double x, double y, std::string text, std::string color,std::string _font_size,std::string _font)
 {
 	/// <text x="180" y="60">Un texte</text>
 	m_ostrm << "<text "
 		<< attrib("x", x)
 		<< attrib("y", y)
+		<< attrib("font-family", _font)
+		<< attrib("font-size", _font_size)
 		<< attrib("fill", color)
 		<< ">" << text << "</text>\n";
 }
@@ -108,7 +109,7 @@ void Svgfile::addGraph(std::unordered_map<Coord*, bool> _data,double x, double y
 	//moyen de faire en sorte de savoir ou placer les points
 }
 
-void Svgfile::addModel(Graph& _graph, double _x, double _y, bool _show_info, float _coef)
+void Svgfile::addModel(Graph& _graph, double _x, double _y,std::string _color, bool _show_info, float _coef)
 {
 	Coord coord_min(_graph.get_m_points()[0]->get_coord().get_x(), _graph.get_m_points()[0]->get_coord().get_y());
 	//calcul de rapport pour la taille des arr�tes
@@ -128,14 +129,15 @@ void Svgfile::addModel(Graph& _graph, double _x, double _y, bool _show_info, flo
 
 	for (const auto& it : _graph.get_m_points())
 	{
-		this->addCircle(it->get_coord().get_x() - coord_min.get_x() + _x, it->get_coord().get_y() - coord_min.get_y() + _y, 6);
+		this->addCircle(it->get_coord().get_x() - coord_min.get_x() + _x, it->get_coord().get_y() - coord_min.get_y() + _y, 10,_color);
+		if(_show_info)
+			this->addText(it->get_coord().get_x() - coord_min.get_x() + _x-5, it->get_coord().get_y() - coord_min.get_y() + _y+5,it->get_id(),"red");
 	}
 	for (const auto& at : _graph.get_m_link())
 	{
-		this->addLine(_graph.get_m_points()[at->get_id_a()]->get_coord().get_x() - coord_min.get_x() + _x, _graph.get_m_points()[at->get_id_a()]->get_coord().get_y() - coord_min.get_y() + _y, _graph.get_m_points()[at->get_id_b()]->get_coord().get_x() - coord_min.get_x() + _x, _graph.get_m_points()[at->get_id_b()]->get_coord().get_y() - coord_min.get_y() + _y);
+		this->addLine(_graph.get_m_points()[at->get_id_a()]->get_coord().get_x() - coord_min.get_x() + _x, _graph.get_m_points()[at->get_id_a()]->get_coord().get_y() - coord_min.get_y() + _y, _graph.get_m_points()[at->get_id_b()]->get_coord().get_x() - coord_min.get_x() + _x, _graph.get_m_points()[at->get_id_b()]->get_coord().get_y() - coord_min.get_y() + _y,_color);
 		if (_show_info)
 		{
-			at->mod_coord_mid(-coord_min.get_x() + _x, -coord_min.get_y() + _y);
 			switch (at->get_mode())
 			{
 			case 'v':
@@ -145,7 +147,7 @@ void Svgfile::addModel(Graph& _graph, double _x, double _y, bool _show_info, flo
 				at->mod_coord_mid(0  , -10 );
 				break;
 			case 'r':
-				at->mod_coord_mid(-10 , -10 );
+				at->mod_coord_mid(-12 , -10 );
 				break;
 			case 'l':
 				at->mod_coord_mid(5 , -10 );
@@ -153,7 +155,8 @@ void Svgfile::addModel(Graph& _graph, double _x, double _y, bool _show_info, flo
 			default:
 				break;
 			}
-			this->addText(at->get_coord_mid().get_x() , at->get_coord_mid().get_y() , at->weight_show() );
+			at->mod_coord_mid(-coord_min.get_x() + _x, -coord_min.get_y() + _y);
+			this->addText(at->get_coord_mid().get_x() , at->get_coord_mid().get_y() , at->weight_show(),_color );
 
 		}
 	}
@@ -165,7 +168,7 @@ void Svgfile::addModel(Graph& _graph, double _x, double _y, bool _show_info, flo
 
 
 		//-----------------Board Result--------------------
-BoardResult::BoardResult():m_mode("test")
+BoardResult::BoardResult():m_mode("high_tech")
 {
 	this->init_template();
 }
@@ -192,13 +195,22 @@ void BoardResult::set_template(Svgfile& _out)
 {
 	_out.add_to_text(m_pattern);
 }
-void BoardResult::give_results(Svgfile& _out, Graph& _graph) const
+void BoardResult::give_results(Svgfile& _out, Graph& _graph,std::string _filename) 
 {
-
-	std::ifstream file("design_template/" + m_mode + ".txt");
-	//_out.addModel(_graph);
-	//_out.addGraph();
-	file.close();
+	std::string color;
+	std::string font="sans-serif";
+	this->init_template();
+	if (m_mode == "high_tech")
+	{
+		color = "white";
+		font = "Myriad-Pro";
+	}
+	else
+		color = "red";
+	this->set_template(_out);
+	_out.addText(112, 75, _filename, color, "80px", font);
+	_out.addModel(_graph,140,110,color);
+	//Add graphe?//
 }
 
 void BoardResult::set_mode()
