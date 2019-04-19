@@ -18,12 +18,11 @@ public:
 	void addText(double x, double y, std::string text, std::string color = defcol,std::string _font_size="20px",std::string _font= "sans - serif");
 	void addText(double x, double y, double val, std::string color = defcol);
 
-	void addGraph(std::unordered_map<Coord*,bool> _data, double _x, double _y); // Ajoute le graphe affichant le résultat
-	void addModel(Graph& _graph, double _x, double _y , std::string _color=defcol,bool _show_info=true,float _coef=1.0); //Graphe d'entrée ou de sortie, le but étant de choisir la dimension max et le ppoint de départ du graphe
+	void addGraph(std::unordered_map<Coord*,bool> _data, double _x, double _y); // Ajoute le graphe affichant le rï¿½sultat
+	void addModel(Graph& _graph, double _x, double _y , std::string _color=defcol,bool _show_info=true,float _coef=1.0); //Graphe d'entrï¿½e ou de sortie, le but ï¿½tant de choisir la dimension max et le ppoint de dï¿½part du graphe
+
 
 	static std::string makeRGB(int r, int g, int b);
-
-	void add_to_text(std::string _added_text);
 
 	/// Type non copiable
 	Svgfile(const Svgfile&) = delete;
@@ -35,7 +34,7 @@ private:
 	int m_width;
 	int m_height;
 
-	// Pour éviter les ouvertures multiples
+	// Pour Ã©viter les ouverture multiples
 	static std::set<std::string> s_openfiles;
 };
 
@@ -48,7 +47,7 @@ public:
 	void set_template(Svgfile& _out);
 	void give_results(Svgfile& _out,Graph& _graph,std::string _filename); // show the results on the svg file with the template choosen
 	//-------------SETTER-------------
-	void set_mode(); //permet de modifier le mode pour ne pas avoir le mmode par défaut, on demande a l'intérieur quelle mode ils veulent
+	void set_mode(); //permet de modifier le mode pour ne pas avoir le mmode par dï¿½faut, on demande a l'intï¿½rieur quelle mode ils veulent
 
 
 	~BoardResult();

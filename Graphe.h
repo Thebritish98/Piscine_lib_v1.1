@@ -11,7 +11,7 @@ class Svgfile;
 class Coord
 {
 public:
-	Coord() :m_x{ 0 }, m_y{ 0 } 
+	Coord() :m_x{ 0 }, m_y{ 0 }
 	{}
 	Coord(short x, short y);
 	short get_x() const;//accesseur de m_x
@@ -139,6 +139,7 @@ public:
 	Graph(Path& _copy_path, Graph& _base_graph);
 	~Graph();
 
+
 	std::unordered_map<unsigned int, Path> Djisktra_algo(unsigned int _departure_point, bool _reverse = false);
 
 	//---------------GETTER----------------------------
@@ -159,8 +160,9 @@ protected:
 
 
 
-/*
+
+
 void get_path(Graph& _graph, std::vector <Path*>& _possible_link);
-void pareto_verif(std::vector <Path*>& _possible_link);*/
+void pareto_verif(std::vector <Path*>& _possible_link);
 #endif //LIB_THG
 
