@@ -1,0 +1,74 @@
+<defs>
+  <radialGradient id="grad_button" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+    <stop offset="0.41%" style="stop-color:rgb(255,255,255);stop-opacity:0.3" />
+    <stop offset="20%" style="stop-color:#FFFFFF;stop-opacity:0.2" />
+    <stop offset="57,93%" style="stop-color:#B5E3EE;stop-opacity:100%" />
+    <stop offset="90%" style="stop-color:#107A9E;stop-opacity:1" />
+  </radialGradient>
+  </defs>
+  <defs>
+    <linearGradient id="back1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0" style="stop-color:#500C80;stop-opacity:1" />
+      <stop offset="50.36%" style="stop-color:#C51586;stop-opacity:0.9" />
+      <stop offset="75.95%" style="stop-color:#CC2740;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#E8D00F;stop-opacity:0.9" />
+    </linearGradient>
+</defs>
+
+//*BACKGROUND*//
+  <rect  width="1520" height="840" style="fill:#5B5B5B;" />
+  <rect x="530" y="250" rx="20" ry="20" width="250" height="250" style="fill:url(#back1);stroke:#3C3836;stroke-width:3;"/>
+  <rect x="500" y="82.5" width="400" height="152.5" style="fill:grey;"/>
+
+
+  <line x1="570" y1="425" x2="530" y2="437.5" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="590" y1="425" x2="530" y2="450" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="610" y1="425" x2="530" y2="462.5" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="630" y1="425" x2="530" y2="475" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="650" y1="425" x2="600" y2="500" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="670" y1="425" x2="720" y2="500" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="690" y1="425" x2="780" y2="475" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="710" y1="425" x2="780" y2="462.5" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="730" y1="425" x2="780" y2="450" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="745" y1="425" x2="780" y2="437.5" style="stroke:#28AECE;stroke-width:1" />
+  
+  <line x1="530" y1="425" x2="780" y2="425" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="530" y1="437.5" x2="780" y2="437.5" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="530" y1="450" x2="780" y2="450" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="530" y1="462.5" x2="780" y2="462.5" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="530" y1="475" x2="780" y2="475" style="stroke:#28AECE;stroke-width:1" />
+  <line x1="530" y1="487.5" x2="780" y2="487.5" style="stroke:#28AECE;stroke-width:1" />
+  
+  //*Model Place *//
+  <rect x="110" y="82.2" width="400" height="400" style="fill:#777777;"/>
+  <path d="M510 482.5 v-100 l-75 100 Z"  fill="grey"  /> 
+
+  //*Graph Place *//
+  <rect x="810" y="82.5" rx="50" ry="50" width="600" height="450" style="fill:#606060;" />
+  <rect x="810" y="82.5" rx="45" ry="45" width="600" height="450" style="fill:#777777;stroke:#606060;" />
+
+  //*Set up line*//
+
+  <rect x="530" y="85" rx="8" ry="10" width="25" height="147.5" style="fill:#3C3836;" />
+  <rect x="530" y="120" rx="8" ry="10" width="25" height="20" style="fill:#4B4B4B;stroke:#5A5856;stroke-width:0.5;" />
+  <rect x="533" y="125" rx="3" ry="10" width="19" height="10" style="fill:#138E94;stroke:#5A5755;stroke-width:0.5;" />
+  
+  <rect x="580" y="85" rx="8" ry="10" width="25" height="147.5" style="fill:#3C3836;" />
+  <rect x="580" y="180" rx="8" ry="10" width="25" height="20" style="fill:#4B4B4B;stroke:#5A5856;stroke-width:0.5;" />
+  <rect x="583" y="185" rx="3" ry="10" width="19" height="10" style="fill:#138E94;stroke:#5A5755;stroke-width:0.5;" />
+
+  <rect x="630" y="85" rx="8" ry="10" width="25" height="147.5" style="fill:#3C3836;" />
+  <rect x="630" y="160" rx="8" ry="10" width="25" height="20" style="fill:#4B4B4B;stroke:#5A5856;stroke-width:0.5;" />
+  <rect x="633" y="165" rx="3" ry="10" width="19" height="10" style="fill:#138E94;stroke:#5A5755;stroke-width:0.5;" />
+
+  <rect x="680" y="85" rx="8" ry="10" width="25" height="147.5" style="fill:#3C3836;" />
+  <rect x="680" y="120" rx="8" ry="10" width="25" height="20" style="fill:#4B4B4B;stroke:#5A5856;stroke-width:0.5;" />
+  <rect x="683" y="125" rx="3" ry="10" width="19" height="10" style="fill:#138E94;stroke:#5A5755;stroke-width:0.5;" />
+  
+  <rect x="730" y="85" rx="8" ry="10" width="25" height="147.5" style="fill:#3C3836;" />
+  <rect x="730" y="180" rx="8" ry="10" width="25" height="20" style="fill:#4B4B4B;stroke:#5A5856;stroke-width:0.5;" />
+  <rect x="733" y="185" rx="3" ry="10" width="19" height="10" style="fill:#138E94;stroke:#5A5755;stroke-width:0.5;" />
+
+  <rect x="780" y="85" rx="8" ry="10" width="25" height="147.5" style="fill:#3C3836;" />
+  <rect x="780" y="160" rx="8" ry="10" width="25" height="20" style="fill:#4B4B4B;stroke:#5A5856;stroke-width:0.5;" />
+  <rect x="783" y="165" rx="3" ry="10" width="19" height="10" style="fill:#138E94;stroke:#5A5755;stroke-width:0.5;" />
