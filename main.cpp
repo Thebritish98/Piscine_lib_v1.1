@@ -27,6 +27,7 @@ int main()
 		std::string Name_File;
 		std::cout << "Nom du modele:";
 		std::cin >> Name_File;
+
 		Graph test(Name_File);
 		testboard.give_results(svgout, test,Name_File);
 		svgout.addGraph(ZA, ZB, 840, 500); 

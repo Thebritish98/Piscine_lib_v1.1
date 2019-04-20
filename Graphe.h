@@ -116,15 +116,15 @@ public:
 		return m_neighboors;
 	}
 
-    unsigned int get_marked() const
-    {
-        return m_marked;
-    }
+	unsigned int get_marked() const
+	{
+		return m_marked;
+	}
 
-    void set_marked(unsigned int new_mark)
-    {
-        m_marked=new_mark;
-    }
+	void set_marked(unsigned int new_mark)
+	{
+		m_marked=new_mark;
+	}
 
 	~Point();
 
@@ -170,6 +170,6 @@ protected:
 
 
 void get_path(Graph& _graph, std::vector <Path*>& _possible_link);
-void pareto_verif(std::vector <Path*>& _possible_link);
+void pareto_verif(std::vector <Path*>& chemin_possible, std::vector<Path*>& chemin_pareto);
 #endif //LIB_THG
 

@@ -15,6 +15,7 @@ public:
 	void addCircle(double x, double y, double r, std::string color = defcol);
 	void addLine(double x1, double y1, double x2, double y2, std::string color = defcol);
 
+	void add_to_text(std::string _added_text);
 	void addText(double x, double y, std::string text, std::string color = defcol,std::string _font_size="20px",std::string _font= "sans - serif");
 	void addText(double x, double y, double val, std::string color = defcol);
 
