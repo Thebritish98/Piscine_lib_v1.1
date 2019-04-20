@@ -229,7 +229,7 @@ void BoardResult::set_template(Svgfile& _out)
 {
 	_out.add_to_text(m_pattern);
 }
-void BoardResult::give_results(Svgfile& _out, Graph& _graph,std::string _filename) 
+void BoardResult::give_results(Svgfile& _out, Graph& _graph,std::string _filename)
 {
 	std::string color;
 	std::string font="sans-serif";

@@ -116,8 +116,15 @@ public:
 		return m_neighboors;
 	}
 
+    unsigned int get_marked() const
+    {
+        return m_marked;
+    }
 
-
+    void set_marked(unsigned int new_mark)
+    {
+        m_marked=new_mark;
+    }
 
 	~Point();
 
