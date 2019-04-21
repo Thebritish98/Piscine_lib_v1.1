@@ -34,6 +34,7 @@
 //      return verif2;
 //  else return 0;
 //}
+
 /// test approximation bfs montrer qu'on a chercher
 //int bfs(Path test,Graph graph )
 //{
@@ -99,7 +100,7 @@ std::cout<<"dans le code"<< std::endl;
                         }
 
                     }
-
+                            Graph to_test{try_it,graph};
 
                         verif1=0;
                         verif2=0;
@@ -125,44 +126,45 @@ std::cout<<"dans le code"<< std::endl;
 
 
 //
-                         for (y=0;y<try_it.get_trace_size();y++)
-                         {
-
-                             if (graph.get_m_points()[try_it.get_trace()[y]->get_id_a()]->get_marked()<graph.get_m_points()[try_it.get_trace()[y]->get_id_b()]->get_marked()) // si la marque de a est inferieur a la marque de b
-                             {
-
-                                 intermediaire=graph.get_m_points()[try_it.get_trace()[y]->get_id_b()]->get_marked();// inter = mark b
-
-                                 for(z=0;z<graph.get_m_points().size();z++)// pour tous les points de get_m point
-                                 {
-
-                                     if (intermediaire==graph.get_m_points()[z]->get_marked())    // si leur mark = a la mark d'intermediaire et donc de b
-                                     graph.get_m_points()[z]->set_marked(graph.get_m_points()[try_it.get_trace()[y]->get_id_a()]->get_marked());// elles prennent la valeur de la mark de a
-                                 }
-                             }
-                             else if (graph.get_m_points()[try_it.get_trace()[y]->get_id_a()]->get_marked()>graph.get_m_points()[try_it.get_trace()[y]->get_id_b()]->get_marked())
-                             {
-                                 intermediaire=graph.get_m_points()[try_it.get_trace()[y]->get_id_a()]->get_marked();
-
-                                 for(z=0;z<graph.get_m_points().size();z++)
-                                 {
-                                                   if (intermediaire==graph.get_m_points()[z]->get_marked())
-                                     graph.get_m_points()[z]->set_marked(graph.get_m_points()[try_it.get_trace()[y]->get_id_b()]->get_marked());
-                                 }
-                             }
-                         }
-                         for(z=0;z<graph.get_m_points().size()&&verif2!=1;z++)
-                         {
-                            // std::cout << "bernard ici tout va bien " <<std::endl;
-                             if (verif1!=graph.get_m_points()[z]->get_marked())
-                             {
-                                verif2=1;
-                              //  std::cout <<"verif 2 =1 ici" <<std::endl;
-                             }
-                              //  std::cout <<"  graph get m point size" << graph.get_m_points().size() <<std::endl;
-                        }
+//                         for (y=0;y<try_it.get_trace_size();y++)
+//                         {
+//
+//                             if (graph.get_m_points()[try_it.get_trace()[y]->get_id_a()]->get_marked()<graph.get_m_points()[try_it.get_trace()[y]->get_id_b()]->get_marked()) // si la marque de a est inferieur a la marque de b
+//                             {
+//
+//                                 intermediaire=graph.get_m_points()[try_it.get_trace()[y]->get_id_b()]->get_marked();// inter = mark b
+//
+//                                 for(z=0;z<graph.get_m_points().size();z++)// pour tous les points de get_m point
+//                                 {
+//
+//                                     if (intermediaire==graph.get_m_points()[z]->get_marked())    // si leur mark = a la mark d'intermediaire et donc de b
+//                                     graph.get_m_points()[z]->set_marked(graph.get_m_points()[try_it.get_trace()[y]->get_id_a()]->get_marked());// elles prennent la valeur de la mark de a
+//                                 }
+//                             }
+//                             else if (graph.get_m_points()[try_it.get_trace()[y]->get_id_a()]->get_marked()>graph.get_m_points()[try_it.get_trace()[y]->get_id_b()]->get_marked())
+//                             {
+//                                 intermediaire=graph.get_m_points()[try_it.get_trace()[y]->get_id_a()]->get_marked();
+//
+//                                 for(z=0;z<graph.get_m_points().size();z++)
+//                                 {
+//                                                   if (intermediaire==graph.get_m_points()[z]->get_marked())
+//                                     graph.get_m_points()[z]->set_marked(graph.get_m_points()[try_it.get_trace()[y]->get_id_b()]->get_marked());
+//                                 }
+//                             }
+//                         }
+//                         for(z=0;z<graph.get_m_points().size()&&verif2!=1;z++)
+//                         {
+//                            // std::cout << "bernard ici tout va bien " <<std::endl;
+//                             if (verif1!=graph.get_m_points()[z]->get_marked())
+//                             {
+//                                verif2=1;
+//                              //  std::cout <<"verif 2 =1 ici" <<std::endl;
+//                             }
+//                              //  std::cout <<"  graph get m point size" << graph.get_m_points().size() <<std::endl;
+//                        }
 //std::cout <<"cherche bug" <<nbmark <<"et  " << nbmark2 << std::endl;
-                         if (verif2==0)
+
+                         if (to_test.bfsTestConnexite(graph.get_m_points().size())==true)
                          {
                             chemin_possible.push_back(new Path(try_it));
                            // std::cout << "Iri ici tout va bien " <<std::endl;
@@ -266,7 +268,44 @@ std::cout <<"nbtour" <<nbtour <<std::endl;
    // std::cout<< "nombre de truc pouvant etre efface"<<nbtour2<<std::endl;
 }
 
-    void pareto_verif_points(std::vector <float*> &cost1,std::vector<float*> &cost2,std::vector<Path*> &pareto,std::vector<Path*> &maybe, std::vector<float*> &pareto_cost1,std::vector<float*> &pareto_cost2)
+
+////
+////    float dijk_on_point(Graph graph,Path chemin )
+////    {
+////        int i=0,y,verif=0;
+////        Graph sous_graph(chemin,graph);
+////        Link* lien;
+////         while(verif!=0)///tant que je le veux
+////        {
+////            for(y=0; y<sous_graphe.get_m_points()[i].get_neighboors().size();y++)///on ajoute les lien voisin du points
+////                lien->push_back(sous_graphe.get_m_points()[i].get_neighboors()[y]);///
+////
+////
+////
+////
+////
+////
+////
+////
+////         i++
+////        }
+////
+////
+////
+////
+////
+////
+////
+////    }
+
+
+
+
+
+
+
+
+    void pareto_verif_points(std::vector <float> &cost1,std::vector<float> &cost2,std::vector<Path*> &pareto,std::vector<Path*> &maybe, std::vector<float> &pareto_cost1,std::vector<float> &pareto_cost2)
 {
                 int i,y,verif=0;
                 for(i=0;i<cost1.size();i++)
@@ -300,31 +339,35 @@ std::cout <<"nbtour" <<nbtour <<std::endl;
 
 float Djisktra_for_weight(Path& _path,Graph& _graph,unsigned int _Starting_point)
 {
+    //l
     bool end=false;
     Graph test(_path, _graph);
     float returned_value=0;//va contenir total cout1 et total cout2
     Point* pt_points;
-    std::vector<Point> list_unvisited_point;
+    std::vector<Point*> list_unvisited_point;
     for (size_t i = 0; i < test.get_m_points().size(); i++)
     {
         if(test.get_m_points()[i] !=test.get_m_points()[_Starting_point])
-            list_unvisited_point.push_back(*test.get_m_points()[i]);
+            list_unvisited_point.push_back(test.get_m_points()[i]);
     }
     float weight=0;
-    Point smallest_weight_point;
-pt_points = test.get_m_points()[_Starting_point];
+    Point* smallest_weight_point;
+    pt_points = test.get_m_points()[_Starting_point];
     while (!end)//liste non vide
     {
-        pt_points->set_marked(test.get_m_points().size());
-        weight = pt_points->get_weight();//on récupère le poids du sommet sur lequel on est actuellement
+      //  std::cout << "tant que pas fini " <<std::endl;
+        pt_points->set_marked(test.get_m_points().size());///Probleme ici !!!!!!!
+        weight = pt_points->get_weight();//on récupère le poids du sommet sur lequel on est actuellement !!
         returned_value += weight; //on ajoute son poids au total cout2 que l'on va renvoyer
         //actualise les valeurs si plus petites
         for (const auto& at : pt_points->get_neighboors())
         {
-            if (at->get_cos2 + weight < test.get_m_points()[at->get_id_b()]->get_weight() && test.get_m_points()[at->get_id_b()]->get_marked()!= test.get_m_points().size())//si le poids depuis ce chemin est inférieur à celui trouver précédemment
+
+            if ((at->get_cos2()+ weight <= test.get_m_points()[at->get_id_b()]->get_weight()||test.get_m_points()[at->get_id_b()]->get_weight()==0) && test.get_m_points()[at->get_id_b()]->get_marked()!= test.get_m_points().size())//si le poids depuis ce chemin est inférieur à celui trouver précédemment
             {
+             //   std::cout << "Poid mis a jour " <<std::endl;
                 test.get_m_points()[at->get_id_b()]->set_pred(pt_points->get_id());//on dit que le précédent est ce point (pt_points)
-                test.get_m_points()[at->get_id_b()]->set_weight(at->get_cos2 + weight);//on update le poids du points
+                test.get_m_points()[at->get_id_b()]->set_weight(at->get_cos2() + weight);//on update le poids du points
             }
         }
 
@@ -338,12 +381,14 @@ pt_points = test.get_m_points()[_Starting_point];
             smallest_weight_point = list_unvisited_point[0];
             for (const auto& it : list_unvisited_point)//trouve le poids le plus petit
             {
-                if (it->get_weight() < smallest_weight_point->get_weight())
-                {
+
+                if (it->get_weight() <= smallest_weight_point->get_weight())
+                {   std::cout<<  "somme selectione" <<smallest_weight_point->get_id() <<std::endl;
                     smallest_weight_point = it;
                 }
             }
             pt_points = smallest_weight_point;
+          //  list_unvisited_point.pop_back(std::find(list_unvisited_point.begin(), list_unvisited_point.end(), pt_points));
             list_unvisited_point.erase(std::find(list_unvisited_point.begin(), list_unvisited_point.end(), pt_points));//efface de la liste le point selectionné pour la prochaine boucle
         }
 
@@ -351,6 +396,7 @@ pt_points = test.get_m_points()[_Starting_point];
     //reset side
     for (const auto& it : test.get_m_points())
     {
+                       // std::cout <<" stuck? " <<std::endl;
         it->reset_mark();
         it->set_weight(0);
         it->set_pred(test.get_m_points().size());
@@ -373,8 +419,7 @@ float Total_cout2(Path& _path, Graph& _graph)
 
 
 void dijkstra
-(Graph graph, std::vector<Path*> &chemin_pareto_dijkstra, std::vector<float*> & cost1_pareto ,std::vector<float*> &cost2_pareto,std::vector<Path*> &chemin_dijkstra,std::vector<float*> &cos1temp,std::vector<float*> &cos2temp)
-
+(Graph graph, std::vector<Path*> &chemin_pareto_dijkstra, std::vector<float> & cost1_pareto ,std::vector<float> & cost2_pareto,std::vector<Path*> &chemin_dijkstra,std::vector<float> &cos1temp,std::vector<float> &cos2temp)
 {
     Path try_it;
     int nblien;
@@ -386,8 +431,9 @@ void dijkstra
 
                nblien=std::bitset<32>(i).count();
 
-                if (nblien==(graph.get_m_points().size()-1)) /// si le chemin a arrete == ordre n-1
+                if (nblien>=(graph.get_m_points().size()-1)) /// si le chemin a arrete == ordre n-1
             {
+             //   std::cout << "a";
                  std::string chaine = (std::bitset<32>(i).to_string()).substr((char)32 - (char)graph.get_m_link().size(), 31);
                     try_it.reset();
                     for (j=0;j<chaine.size();j++)/// Creer le path en arrette et non en booléen
@@ -400,7 +446,7 @@ void dijkstra
                         }
 
                     }
-
+                             //   std::cout <<"avant algo dijkstra n fois " <<std::endl;
 
                             for (y=0;y<try_it.get_trace_size();y++)  /// on constitue des vecteurs.
                             {
@@ -408,16 +454,24 @@ void dijkstra
 
                                 cos2temp.push_back (Total_cout2(try_it,graph));
                                 cos1temp.push_back(try_it.get_tot1());
-                                chemin_dijkstra.push_back(try_it);
-                            }
-                            pareto_verif_points(cos1temp,cos2temp,chemin_pareto_dijkstra,chemin_dijkstra,cost1_pareto,cost2_pareto);
+                                chemin_dijkstra.push_back(new Path(try_it));
 
+                            }
+                                //    std::cout<< "ici";
+                          //  std::cout <<"avant tri/pareto verif" <<std::endl;
+                            pareto_verif_points(cos1temp,cos2temp,chemin_pareto_dijkstra,chemin_dijkstra,cost1_pareto,cost2_pareto);
             }
+
     }
 
-
+//    for (z=0;z<cos2temp.size();z++)
+                       // std::cout <<"  point après vérif " <<cos2temp[z] <<std::endl;
 
 }
+
+
+
+
 
 
 

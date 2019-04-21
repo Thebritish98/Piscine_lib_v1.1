@@ -3,7 +3,7 @@
 
 
 
-bool tri_cout1(const Link* &p,const Link* &d){return p->m_cost1<d->m_cost1;}
+//bool tri_cout1(const Link* &p,const Link* &d){return p->m_cost1<d->m_cost1;}
 
 void kruskal(std::vector<Link*> m_links, Path* & apm,std::vector<Point*> m_points)                                     /// on est d'accord que je modifie que virtuellement graph ?
 {
@@ -102,9 +102,37 @@ int main()
 	std::cout << "Quelle modele voulez vous?" << std::endl;
 	std::cin >> str_tmp;
 	Graph test(str_tmp);
-	std::vector<Path*> chemin;
+	std::vector<Path*> chemin_possible;
+	std::vector<Path*> chemin_dijkstra;
 	std::vector<Path*> chemin_pareto;
-	get_path(test,chemin);
+	std::vector<Path*> chemin_pareto_dijkstra;
+	std::vector<float> cost1_pareto;
+	std::vector<float> cost2_pareto;
+	std::vector<float> cost1_dijkstra;
+	std::vector<float> cost2_dijkstra;
+	Path* apm;
+	get_path(test,chemin_possible);
+	pareto_verif(chemin_possible,chemin_pareto);
+    //dijkstra(test,chemin_pareto_dijkstra,cost1_pareto,cost2_pareto,chemin_dijkstra,cost1_dijkstra,cost2_dijkstra);
+	int i;
+	for (i=0;i<chemin_pareto.size();i++)
+    {
+        chemin_pareto[i]->afficher_path();
+    }
+//
+//        std::cout<< "djikstra je t'aime"<<std::endl;
+//    for (i=0;i<chemin_pareto.size();i++)
+//    {
+//        std::cout<< "djikstra "<< i<< std::endl;
+//        chemin_pareto_dijkstra[i]->afficher_path();
+//
+//    }
+//    kruskal(test.get_m_link(),apm,test.get_m_points());
+//    std::cout<<"kruskal en dessous" <<std::endl;
+//    apm->afficher_path();
+
+
+
 	std::cout << "\t\tPROJET ING2 S2\n";
 	/*MAIN PROCESS*/
 	while (!end)

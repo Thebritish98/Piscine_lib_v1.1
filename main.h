@@ -17,14 +17,22 @@
 #include <set>
 #include <Windows.h>
 #include  <algorithm>
+
+
 #include "Display.h"
 #include "Graphe.h"
+#include "Path.h"
+#include "pareto.h"
+
 class BoardResult;
 namespace util
 {
 
 	void exec(LPCSTR FileName);
-
+	void Line();
+	void refresh(Graph& _graph, BoardResult& _board, std::string _filename);
+	void setting(Graph& _graph, BoardResult& _board);
+	void show(Graph& _graph, BoardResult _board, Svgfile& _out);
 	template <typename T>
 	T menu(std::string _title, std::map<T, std::string> _mapname)
 	{
@@ -49,9 +57,5 @@ namespace util
 		}
 		return choice;
 	}
-	void Line();
-	void refresh(Graph& _graph, BoardResult& _board, std::string _filename);
-	void setting(Graph& _graph, BoardResult& _board);
-	void show(Graph& _graph, BoardResult _board, Svgfile& _out);
 }
 #endif // !MAINHPP

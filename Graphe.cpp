@@ -87,7 +87,7 @@ Graph::Graph(std::string _FileName)
 	for (unsigned int i = 0; i < NbLinks; i++)
 	{
 
-		
+
 			file1 >> id; file2 >> id;//Trouver moyen de passer directement à la suite//
 			file1 >> id_A;//On récupère l'id du point de départ
 			file1 >> id_B;//On récupère l'id du point de destination
@@ -136,7 +136,6 @@ Graph::Graph(std::string _FileName)
 	file2.close();
 
 }
-
 void Graph::reload(std::string _FileName)
 {
 	m_model_name = _FileName;
@@ -264,7 +263,33 @@ void Graph::reload(std::string _FileName)
 void Graph::Djisktra_for_weight(Graph& _graph)
 {
 }
+bool Graph::bfsTestConnexite(int nombreTotalSommets)
+{
+	std::vector<bool> discovered;
+	discovered.resize(nombreTotalSommets);
+	std::queue<const Point*> file;
+	int nbSommetsDansLaCC = 1;
 
+	file.push(m_points[0]);
+	discovered[0] = true;
+
+	while (!(file.empty()))
+	{
+
+		for (auto s : file.front()->get_neighboors())
+		{
+			if (!discovered[get_m_points()[(s)->get_id_b()]->get_id()] )
+			{
+				file.push(m_points[get_m_points()[(s)->get_id_b()]->get_id()]);
+				discovered[get_m_points()[(s)->get_id_b()]->get_id()] = true;
+			}
+		}
+		file.pop();
+		nbSommetsDansLaCC++;
+	}
+
+	return (nbSommetsDansLaCC ==  nombreTotalSommets);
+}
 
 
 //------------------POINT------------------
