@@ -27,12 +27,6 @@
     <ClCompile Include="Path.cpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClCompile>
-    <ClCompile Include="pareto.cpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClCompile>
-    <ClCompile Include="Interface.cpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -45,12 +39,6 @@
       <Filter>Fichiers sources</Filter>
     </ClInclude>
     <ClInclude Include="Path.h">
-      <Filter>Fichiers sources</Filter>
-    </ClInclude>
-    <ClInclude Include="pareto.h">
-      <Filter>Fichiers sources</Filter>
-    </ClInclude>
-    <ClInclude Include="Interface.h">
       <Filter>Fichiers sources</Filter>
     </ClInclude>
   </ItemGroup>

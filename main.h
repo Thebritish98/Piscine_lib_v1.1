@@ -16,12 +16,9 @@
 #include <queue>
 #include <set>
 #include <Windows.h>
-
+#include  <algorithm>
 #include "Display.h"
 #include "Graphe.h"
-#include "Path.h"
-#include "pareto.h"
-#include "Interface.h"
 class BoardResult;
 namespace util
 {

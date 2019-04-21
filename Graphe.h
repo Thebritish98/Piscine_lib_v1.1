@@ -1,34 +1,3 @@
-#ifndef LIB_THG
-#define LIB_THG
-
-#include "main.h"
-class Path;
-class Svgfile;
-
-
-
-
-class Coord
-{
-public:
-	Coord() :m_x{ 0 }, m_y{ 0 }
-	{}
-	Coord(short x, short y);
-	short get_x() const;//accesseur de m_x
-	short get_y() const;//accesseur de m_y
-	void mod_c(short _x_add,short _y_add); //add value to x and y
-	void set_c(short _x, short _y)
-	{
-		m_x = _x;
-		m_y = _y;
-	}
-	~Coord();
-
-protected:
-	short m_x;
-	short m_y;
-};
-
 
 //------------------LINK------------------
 class Link
@@ -36,7 +5,7 @@ class Link
 public:
 	Link(){}
 	Link(Link& _link_cop);
-	Link(unsigned int _id, float _cost1, float _cost2, unsigned int _a, unsigned int _b,Coord _mid_link,char _mode ); //ajout des paramètres de mode et de coord text
+	Link(unsigned int _id, float _cost1, float _cost2, unsigned int _a, unsigned int _b,Coord _mid_link,char _mode ); //ajout des param�tres de mode et de coord text
 
 	//----------------GETTER-----------------------
 	float get_cos1()
@@ -79,11 +48,21 @@ public:
 		oss << m_cost2;
 		return oss.str();
 	}
+    void set_cost1(float a)
+    {
+        m_cost1=a;
+    }
+
+
+
+float m_cost1;
+	float m_cost2;
+
+
 	~Link();
 
 protected:
-	float m_cost1;
-	float m_cost2;
+
 	char m_mode; //mode of the link : horizontal: 'h' / vertical : 'v' / diagonal up right : 'r' / diagonal up left : 'l' and 'n' as null
 	Coord m_coord_text; //Coord for the text (weights)
 
@@ -106,15 +85,50 @@ public:
 		return m_id;
 	}
 
+
+
+
+
+
+
+
 	Coord get_coord() const
 	{
 		return m_Coord;
 	}
 
-	std::unordered_map<Link*, unsigned int> get_neighboors() const
+=======
+#ifndef LIB_THG
+#define LIB_THG
+
+#include "main.h"
+class Path;
+class Svgfile;
+
+
+
+
+class Coord
+{
+public:
+	Coord() :m_x{ 0 }, m_y{ 0 }
+	{}
+	Coord(short x, short y);
+	short get_x() const;//accesseur de m_x
+	short get_y() const;//accesseur de m_y
+	void mod_c(short _x_add,short _y_add); //add value to x and y
+	void set_c(short _x, short _y)
 	{
-		return m_neighboors;
+		m_x = _x;
+		m_y = _y;
 	}
+	~Coord();
+
+protected:
+	short m_x;
+	short m_y;
+};
+
 
 	unsigned int get_marked() const
 	{
@@ -125,12 +139,32 @@ public:
 	{
 		m_marked=new_mark;
 	}
+    void reset_mark()
+    {
+        m_marked=m_id;
+    }
 
+    std::vector<Link*>  get_Link_neigh()
+    {
+        return m_neighboors;
+    }
+
+    std::vector<unsigned int> get_neigh_id()
+    {
+        return m_neighboors_id;
+    }
+
+
+
+    bool ordre_sommet(Point* a, Point* b)
+    {
+        return a->m_marked<b->m_marked;
+    };
 	~Point();
 
 protected:
-	std::unordered_map<Link* , unsigned int> m_neighboors;
-
+	std::vector<Link*> m_neighboors;
+	std::vector<unsigned int> m_neighboors_id;
 	unsigned int m_id;
 	unsigned int m_marked;
 
@@ -171,10 +205,6 @@ protected:
 	std::vector<Link*> m_links;
 	std::string m_model_name;
 };
-
-
-
-
 
 void get_path(Graph& _graph, std::vector <Path*>& _possible_link);
 void pareto_verif(std::vector <Path*>& chemin_possible, std::vector<Path*>& chemin_pareto);

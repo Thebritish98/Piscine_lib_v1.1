@@ -127,7 +127,6 @@
     <ClCompile Include="Graphe.cpp" />
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="pareto.cpp" />
     <ClCompile Include="Path.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -135,7 +134,6 @@
     <ClInclude Include="Graphe.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="pareto.h" />
     <ClInclude Include="Path.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
