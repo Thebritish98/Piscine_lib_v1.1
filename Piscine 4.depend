@@ -1,0 +1,54 @@
+# depslib dependency file v1.0
+1555843719 source:d:\kalmuns\programmation\piscine v4\piscine 4\main.cpp
+	"main.h"
+
+1555813553 d:\kalmuns\programmation\piscine v4\piscine 4\main.h
+	<bitset>
+	<math.h>
+	<iostream>
+	<unordered_map>
+	<unordered_set>
+	<string>
+	<vector>
+	<ostream>
+	<fstream>
+	<sstream>
+	<stack>
+	<queue>
+	<set>
+	<Windows.h>
+	<algorithm>
+	"Display.h"
+	"Graphe.h"
+	"Path.h"
+
+1555775186 d:\kalmuns\programmation\piscine v4\piscine 4\display.h
+	"main.h"
+
+1555850101 d:\kalmuns\programmation\piscine v4\piscine 4\graphe.h
+	"main.h"
+
+1555622378 d:\kalmuns\programmation\piscine v4\piscine 4\path.h
+	"main.h"
+
+1555775528 source:d:\kalmuns\programmation\piscine v4\piscine 4\display.cpp
+	"Display.h"
+
+1555849587 source:d:\kalmuns\programmation\piscine v4\piscine 4\graphe.cpp
+	"Graphe.h"
+
+1555722804 source:d:\kalmuns\programmation\piscine v4\piscine 4\path.cpp
+	"Path.h"
+	<iterator>
+
+1555861318 source:d:\kalmuns\programmation\piscine v4\piscine 4\pareto.cpp
+	"main.h"
+
+1555801402 source:d:\kalmuns\programmation\piscine v4\piscine 4\kruskal.c
+
+1555813588 source:d:\kalmuns\programmation\piscine v4\piscine 4\kruskal.cpp
+
+1555813428 d:\kalmuns\programmation\piscine v4\piscine 4\kruskal.h
+	"main.h"
+	"Graphe.h"
+

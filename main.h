@@ -15,17 +15,17 @@
 #include <queue>
 #include <set>
 #include <Windows.h>
-
+#include  <algorithm>
 #include "Display.h"
 #include "Graphe.h"
 #include "Path.h"
-#include "pareto.h"
 
-namespace util 
+
+namespace util
 {
 
 	void exec(LPCSTR FileName);
-	
+
 }
 
 #endif // !MAINHPP

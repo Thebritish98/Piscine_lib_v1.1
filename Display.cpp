@@ -164,8 +164,8 @@ void Svgfile::addModel(Graph& _graph, double _x, double _y,std::string _color, b
 	for (const auto& it : _graph.get_m_points())
 	{
 		this->addCircle(it->get_coord().get_x() - coord_min.get_x() + _x, it->get_coord().get_y() - coord_min.get_y() + _y, 5,_color);
-		/*if(_show_info)
-			this->addText(it->get_coord().get_x() - coord_min.get_x() + _x-5, it->get_coord().get_y() - coord_min.get_y() + _y+5,it->get_id(),"red");*/
+		if(_show_info)
+			this->addText(it->get_coord().get_x() - coord_min.get_x() + _x-5, it->get_coord().get_y() - coord_min.get_y() + _y+5,it->get_id(),"red");
 	}
 	for (const auto& at : _graph.get_m_link())
 	{
