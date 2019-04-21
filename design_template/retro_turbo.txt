@@ -5,14 +5,15 @@
     <stop offset="57,93%" style="stop-color:#B5E3EE;stop-opacity:100%" />
     <stop offset="90%" style="stop-color:#107A9E;stop-opacity:1" />
   </radialGradient>
-  </defs>
-  <defs>
-    <linearGradient id="back1" x1="0%" y1="0%" x2="0%" y2="100%">
+  <linearGradient id="back1" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0" style="stop-color:#500C80;stop-opacity:1" />
       <stop offset="50.36%" style="stop-color:#C51586;stop-opacity:0.9" />
       <stop offset="75.95%" style="stop-color:#CC2740;stop-opacity:0.9" />
       <stop offset="100%" style="stop-color:#E8D00F;stop-opacity:0.9" />
-    </linearGradient>
+  </linearGradient>
+  <style>
+      @import url("https://fonts.googleapis.com/css?family=Anton");
+  </style>
 </defs>
 
 //*BACKGROUND*//
@@ -40,8 +41,7 @@
   <line x1="530" y1="487.5" x2="780" y2="487.5" style="stroke:#28AECE;stroke-width:1" />
   
   //*Model Place *//
-  <rect x="110" y="82.2" width="400" height="400" style="fill:#777777;"/>
-  <path d="M510 482.5 v-100 l-75 100 Z"  fill="grey"  /> 
+  <rect x="60" y="82.2" rx="50" ry="50" width="450" height="450" style="fill:#777777;"/>
 
   //*Graph Place *//
   <rect x="810" y="82.5" rx="50" ry="50" width="600" height="450" style="fill:#606060;" />
@@ -72,3 +72,4 @@
   <rect x="780" y="85" rx="8" ry="10" width="25" height="147.5" style="fill:#3C3836;" />
   <rect x="780" y="160" rx="8" ry="10" width="25" height="20" style="fill:#4B4B4B;stroke:#5A5856;stroke-width:0.5;" />
   <rect x="783" y="165" rx="3" ry="10" width="19" height="10" style="fill:#138E94;stroke:#5A5755;stroke-width:0.5;" />
+

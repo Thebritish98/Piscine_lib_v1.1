@@ -1,34 +1,3 @@
-#ifndef LIB_THG
-#define LIB_THG
-
-#include "main.h"
-class Path;
-class Svgfile;
-
-
-
-
-class Coord
-{
-public:
-	Coord() :m_x{ 0 }, m_y{ 0 }
-	{}
-	Coord(short x, short y);
-	short get_x() const;//accesseur de m_x
-	short get_y() const;//accesseur de m_y
-	void mod_c(short _x_add,short _y_add); //add value to x and y
-	void set_c(short _x, short _y)
-	{
-		m_x = _x;
-		m_y = _y;
-	}
-	~Coord();
-
-protected:
-	short m_x;
-	short m_y;
-};
-
 
 //------------------LINK------------------
 class Link
@@ -36,7 +5,7 @@ class Link
 public:
 	Link(){}
 	Link(Link& _link_cop);
-	Link(unsigned int _id, float _cost1, float _cost2, unsigned int _a, unsigned int _b,Coord _mid_link,char _mode ); //ajout des paramètres de mode et de coord text
+	Link(unsigned int _id, float _cost1, float _cost2, unsigned int _a, unsigned int _b,Coord _mid_link,char _mode ); //ajout des paramï¿½tres de mode et de coord text
 
 	//----------------GETTER-----------------------
 	float get_cos1()
@@ -102,15 +71,6 @@ protected:
 	unsigned int m_point_B;
 };
 
-
-
-
-
-
-
-
-
-
 //------------------POINT------------------
 class Point
 {
@@ -136,6 +96,39 @@ public:
 	{
 		return m_Coord;
 	}
+
+=======
+#ifndef LIB_THG
+#define LIB_THG
+
+#include "main.h"
+class Path;
+class Svgfile;
+
+
+
+
+class Coord
+{
+public:
+	Coord() :m_x{ 0 }, m_y{ 0 }
+	{}
+	Coord(short x, short y);
+	short get_x() const;//accesseur de m_x
+	short get_y() const;//accesseur de m_y
+	void mod_c(short _x_add,short _y_add); //add value to x and y
+	void set_c(short _x, short _y)
+	{
+		m_x = _x;
+		m_y = _y;
+	}
+	~Coord();
+
+protected:
+	short m_x;
+	short m_y;
+};
+
 
 	unsigned int get_marked() const
 	{
@@ -177,32 +170,19 @@ protected:
 
 	Coord m_Coord;
 };
-struct tri
-{
-    std::vector<Point*> a_trier;
 
-};
-
-//
-// bool ordre_sommet(Point* a, Point* b)
-//{
-//    return a->m_marked<b->m_marked;
-//};
-
-// void tri(std::vector<Point*> truc)
-//    {
-//        std::sort(truc.begin(),truc.end(),ordre_sommet );
-//    }
-////------------------GRAPH------------------
+//------------------GRAPH------------------
 
 class Graph
 {
 public:
+	Graph(){}
 	Graph(std::string _FileName);
+	void reload(std::string _FileName);
 	Graph(Path& _copy_path, Graph& _base_graph);
 	~Graph();
 
-	Path Djisktra_for_path(Graph& _graph);
+	std::vector<Path*> Djisktra_for_path(Graph& _graph,unsigned int _id);
 	void Djisktra_for_weight(Graph& _graph);
 
 	//---------------GETTER----------------------------
@@ -214,16 +194,17 @@ public:
 	{
 		return m_links;
 	}
+	std::string get_model_name()
+	{
+		return m_model_name;
+	}
 
 
 protected:
 	std::vector<Point*> m_points;
 	std::vector<Link*> m_links;
+	std::string m_model_name;
 };
-
-
-
-
 
 void get_path(Graph& _graph, std::vector <Path*>& _possible_link);
 void pareto_verif(std::vector <Path*>& chemin_possible, std::vector<Path*>& chemin_pareto);

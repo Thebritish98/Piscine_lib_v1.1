@@ -32,7 +32,7 @@ void kruskal(std::vector<Link*> m_links, Path* & apm,std::vector<Point*> m_point
                 }
                 for (i=0;i<m_links.size();i++)
                 {
-                    std::cout << "rÈsultat du tri " << i<< "   "<< m_links[i]->get_cos1()<<std::endl;
+                    std::cout << "r√©sultat du tri " << i<< "   "<< m_links[i]->get_cos1()<<std::endl;
                 }
 
    //     std::sort(*m_links.begin(),*m_links.end(), tri_cout1);
@@ -65,7 +65,7 @@ verif2=1;
                                  }
                   }
         std::cout<< "j'ai trouve mon copain le bug"<<std::endl;
-                 if (verif1==1)  /// si l'ordi est passÈ par une des deux condition en haut -> qu les deux points n'Ètait pas reliÈ et que verif =1 donc on ajoute le lien
+                 if (verif1==1)  /// si l'ordi est pass√© par une des deux condition en haut -> qu les deux points n'√©tait pas reli√© et que verif =1 donc on ajoute le lien
                     inter.add_link(m_links[i]);
                                 std::cout<< "tout va bien ici"<<std::endl;
                   for(z=0;z<m_points.size()&&verif2!=1;z++)
@@ -78,7 +78,7 @@ verif2=1;
                   }
                 }
 
-                /// reset les points pour Ítre sur que quoi que l'on demande aprËs tout aille bien
+                /// reset les points pour √™tre sur que quoi que l'on demande apr√®s tout aille bien
             for(z=0;z<m_points.size();z++)
                          {
                             m_points[z]->reset_mark();
@@ -93,26 +93,53 @@ verif2=1;
 
 
 int main()
+
 {
-    unsigned int i;
+	bool end = false;
 	Svgfile svgout;
-	std::string Name_File;
-	std::cout << "Nom du modele:";
-	std::cin >> Name_File;
-	Graph test(Name_File);
-	svgout.addModel(test,100,100);
-    //std::cout << "traque "<<pourquoi.get_tot1()<<std::endl;
+	BoardResult Board;
+	std::string str_tmp;
+	std::cout << "Quelle modele voulez vous?" << std::endl;
+	std::cin >> str_tmp;
+	Graph test(str_tmp);
 	std::vector<Path*> chemin;
 	std::vector<Path*> chemin_pareto;
 	get_path(test,chemin);
-//	std::cout << "total chemin possible i 1 "<<chemin[0]->get_tot1(); /// ici me semble bizarre
-	//std::cout<<"taille entre get_path et verif   "<<chemin.size()<<std::endl;
-//	for(i=0;i<chemin.size();i++)
-//    {
-//  //      std::cout <<" Chemin "<<i<<std::endl;
-//        chemin[i]->afficher_path();
-//    }
-	pareto_verif(chemin,chemin_pareto);///peut Ítre bug ici
+	std::cout << "\t\tPROJET ING2 S2\n";
+	/*MAIN PROCESS*/
+	while (!end)
+	{
+		util::Line();
+		switch (util::menu<unsigned int>("\nQue voulez vous faire?", { {0,"lancer Kruskal/Pareto"},{1,"Lancer Djisktra/Pareto"} ,{2,"Modifier le theme"} ,{3,"Quitter"} }))
+		{
+		case 0:
+			/*
+			On lance kruskal pareto et affichage avec graphe de base sur 1 ecran
+			*/
+			std::cout << "On lance kruskal" << std::endl;
+			break;
+		case 1:
+			/*
+			On lance pareto affichage avec graphe de base et djikstra sur fiche a cot√©
+			*/
+			std::cout << "On lance djisktra" << std::endl;
+			break;
+		case 2:
+			util::setting(test,Board);
+			break;
+		case 3:
+			end = true;
+			break;
+		}
+	}
+	Board.init_template();
+	util::show(test, Board, svgout);
+	util::exec("output.svg");
+	return 0;
+}
+/*A PLACER
+
+	pareto_verif(chemin,chemin_pareto);///peut √™tre bug ici
 	Path* apm;
 //	std::cout<<chemin.size()<<std::endl;
 //std::cout<< " a paprtir d'ici"<<std::endl;
@@ -123,16 +150,50 @@ int main()
         std::cout<<"cout 1        "<<chemin_pareto[i]->get_tot1()<< "et     "<<chemin_pareto[i]->get_tot2()<<std::endl;
     }
     kruskal(test.get_m_link(),apm,test.get_m_points());
-	util::exec("output.svg");
-	return 0;
-}
+*/
 
 namespace util
 {
 	void exec(LPCSTR FileName)
 	{
-		ShellExecute(NULL, "open", FileName, NULL, NULL, SW_SHOWNORMAL); //‡ l'aide https://docs.microsoft.com/en-us/windows/desktop/api/shellapi/nf-shellapi-shellexecutea
+		ShellExecute(NULL, "open", FileName, NULL, NULL, SW_SHOWNORMAL); //√† l'aide https://docs.microsoft.com/en-us/windows/desktop/api/shellapi/nf-shellapi-shellexecutea
+
+	}
+	void Line()
+	{
+		std::cout << "-----------------------------------------\n";
+	}
+
+	void refresh(Graph& _graph,BoardResult& _board,std::string _filename)
+	{
+		if(_filename != "none")
+			_graph.reload(_filename);
+		_board.init_template();
+	}
+
+	void setting(Graph& _graph, BoardResult& _board)
+	{
+		bool end = false;
+		std::string str_tmp;
+		while (!end)
+		{
+			switch (util::menu<unsigned int>("Que voulez vous modifier?", { {1,"Modifier le theme"},{2,"Quitter les options"} }))
+			{
+			case  1:
+				_board.set_mode();
+				util::refresh(_graph, _board, "none");
+				break;
+			case  2:
+				end = true;
+				break;
+			}
+		}
+	}
+
+	void show(Graph& _graph, BoardResult _board, Svgfile& _out)
+	{
+		_board.set_template(_out);
+		_board.give_results(_out, _graph, _graph.get_model_name());
 	}
 
 }
-
