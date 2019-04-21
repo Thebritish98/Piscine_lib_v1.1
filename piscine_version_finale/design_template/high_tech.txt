@@ -1,0 +1,75 @@
+
+<defs>
+  <radialGradient id="grad_button" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+    <stop offset="0.41%" style="stop-color:rgb(255,255,255);stop-opacity:0.3" />
+    <stop offset="20%" style="stop-color:#FFFFFF;stop-opacity:0.2" />
+    <stop offset="57,93%" style="stop-color:#B5E3EE;stop-opacity:100%" />
+    <stop offset="90%" style="stop-color:#107A9E;stop-opacity:1" />
+  </radialGradient>
+    <linearGradient id="lin_button" x1="0%" y1="0%" x2="200%" y2="0%">
+      <stop offset="20.54%" style="stop-color:#FFFFFF;stop-opacity:0.3" />
+      <stop offset="44.59%" style="stop-color:#FFFFFF;stop-opacity:1" />
+  </linearGradient>
+  <style>
+      @import url("https://fonts.googleapis.com/css?family=Merriweather+Sans:800");
+  </style>
+
+</defs>
+
+  //*BACKGROUND*//
+  <rect width="1540" height="850" style="fill:#090F24;"/>
+
+
+  <line x1="110" y1="0" x2="110" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="210" y1="0" x2="210" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="310" y1="0" x2="310" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="410" y1="0" x2="410" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="510" y1="0" x2="510" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="610" y1="0" x2="610" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="710" y1="0" x2="710" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="810" y1="0" x2="810" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="910" y1="0" x2="910" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="1010" y1="0" x2="1010" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="1110" y1="0" x2="1110" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="1210" y1="0" x2="1210" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="1310" y1="0" x2="1310" y2="840" style="stroke:#107C88;stroke-width:1" />
+  <line x1="1410" y1="0" x2="1410" y2="840" style="stroke:#107C88;stroke-width:1" />
+  
+  <line x1="0" y1="82.5" x2="1520" y2="82.5" style="stroke:#107C88;stroke-width:1" />
+  <line x1="0" y1="157.5" x2="1520" y2="157.5" style="stroke:#107C88;stroke-width:1" />
+  <line x1="0" y1="232.5" x2="1520" y2="232.5" style="stroke:#107C88;stroke-width:1" />
+  <line x1="0" y1="307.5" x2="1520" y2="307.5" style="stroke:#107C88;stroke-width:1" />
+  <line x1="0" y1="382.5" x2="1520" y2="382.5" style="stroke:#107C88;stroke-width:1" />
+  <line x1="0" y1="457.5" x2="1520" y2="457.5" style="stroke:#107C88;stroke-width:1" />
+  <line x1="0" y1="532.5" x2="1520" y2="532.5" style="stroke:#107C88;stroke-width:1" />
+  <line x1="0" y1="607.5" x2="1520" y2="607.5" style="stroke:#107C88;stroke-width:1" />
+  <line x1="0" y1="682.5" x2="1520" y2="682.5" style="stroke:#107C88;stroke-width:1" />
+  <line x1="0" y1="757.5" x2="1520" y2="757.5" style="stroke:#107C88;stroke-width:1" />
+  
+  //*Model Place *//
+  <path d="M110 82.5 h400 v300 l-75 100 h-325 Z"  fill="#090F24"  /> 
+  <path d="M110 82.5 h400 v300 l-75 100 h-325 Z"  fill="#107C88" opacity="0.5" /> 
+
+  //*Graph Place *//
+  <rect x="810" y="82.5" width="600" height="450" style="fill:#090F24;" />
+  <path d="M810 82.5 h200 h-200 v150 M810 532.5 h200 h-200 v-150 M1410 82.5 h-200 h200 v150 M1410 532.5 h-200 h200 v-150 "  stroke="#107C88"  stroke-width="5" /> 
+  <circle cx="840" cy="500" r="3" fill="blue"/>
+  //*Result models place *//
+  <rect x="210" y="607.5" width="1100" height="175" style="fill:#090F24;" />
+  <rect x="210" y="607.5" width="1100" height="175" style="fill:#107C88; opacity:0.5" />
+
+  //*1 Button*//
+  <circle cx="210" cy="532.5" r="40" fill="#090F24" />
+  <circle cx="210" cy="532.5" r="40" fill="url(#grad_button)" opacity="0.4" />
+  <circle cx="210" cy="532.5" r="40" fill="url(#lin_button)" opacity="0.4" />
+  <circle cx="210" cy="532.5" r="5" fill="#504964" />
+
+  <circle cx="310" cy="532.5" r="40" fill="#090F24" />
+  <circle cx="310" cy="532.5" r="40" fill="url(#grad_button)" opacity="0.4" />
+  <circle cx="310" cy="532.5" r="40" fill="url(#lin_button)" opacity="0.4" />
+  <circle cx="310" cy="532.5" r="5" fill="#504964" />
+
+  <circle cx="410" cy="532.5" r="40" fill="#090F24" />
+  <circle cx="410" cy="532.5" r="40" fill="url(#grad_button)" opacity="0.4" />
+  <circle cx="410" cy="532.5" r="40" fill="url(#lin_button)" opacity="0.4" />
+  <circle cx="410" cy="532.5" r="5" fill="#504964" />
