@@ -1,6 +1,7 @@
 #include "Graphe.h"
 
 
+
 Coord::Coord(short x, short y): m_x{x} , m_y {y}
 {
 	//std::cout << "(" + x << ";" << y + ")" << std::endl;
@@ -26,12 +27,9 @@ Coord::~Coord()
 {
 
 }
-
 	//------------------GRAPH------------------
 
-Graph::Graph(Path& _copy_path, Graph& _base_graph) :m_points{ _base_graph.get_m_points() }, m_links{_copy_path.get_trace()}
-{
-}
+
 
 Graph::Graph(std::string _FileName)
 {
@@ -53,7 +51,9 @@ Graph::Graph(std::string _FileName)
 	short y = 0;
 	unsigned int id;
 	file1 >> NbPoints;
-
+Graph::Graph(Path& _copy_path, Graph& _base_graph) :m_points{ _base_graph.get_m_points() }, m_links{_copy_path.get_trace()}
+{
+}
 
 	//crÃ©ation des sommets avec Coords///
 	for (unsigned int i = 0; i < NbPoints; i++) //Tant que tous les points ne sont pas ajoutÃ©s
@@ -87,7 +87,7 @@ Graph::Graph(std::string _FileName)
 	for (unsigned int i = 0; i < NbLinks; i++)
 	{
 
-		
+
 			file1 >> id; file2 >> id;//Trouver moyen de passer directement à la suite//
 			file1 >> id_A;//On récupère l'id du point de départ
 			file1 >> id_B;//On récupère l'id du point de destination

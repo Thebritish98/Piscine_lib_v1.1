@@ -1,3 +1,36 @@
+#include "main.h"
+
+
+
+
+
+
+
+class Coord
+{
+public:
+	Coord() :m_x{ 0 }, m_y{ 0 }
+	{}
+	Coord(short x, short y);
+	short get_x() const;//accesseur de m_x
+	short get_y() const;//accesseur de m_y
+	void mod_c(short _x_add,short _y_add); //add value to x and y
+	void set_c(short _x, short _y)
+	{
+		m_x = _x;
+		m_y = _y;
+	}
+	~Coord();
+
+
+
+protected:
+	short m_x;
+	short m_y;
+};
+
+
+
 
 //------------------LINK------------------
 class Link
@@ -85,52 +118,7 @@ public:
 		return m_id;
 	}
 
-
-
-
-
-
-
-
-	Coord get_coord() const
-	{
-		return m_Coord;
-	}
-
-=======
-#ifndef LIB_THG
-#define LIB_THG
-
-#include "main.h"
-class Path;
-class Svgfile;
-
-
-
-
-class Coord
-{
-public:
-	Coord() :m_x{ 0 }, m_y{ 0 }
-	{}
-	Coord(short x, short y);
-	short get_x() const;//accesseur de m_x
-	short get_y() const;//accesseur de m_y
-	void mod_c(short _x_add,short _y_add); //add value to x and y
-	void set_c(short _x, short _y)
-	{
-		m_x = _x;
-		m_y = _y;
-	}
-	~Coord();
-
-protected:
-	short m_x;
-	short m_y;
-};
-
-
-	unsigned int get_marked() const
+unsigned int get_marked() const
 	{
 		return m_marked;
 	}
@@ -154,6 +142,11 @@ protected:
         return m_neighboors_id;
     }
 
+    	Coord get_coord() const
+	{
+		return m_Coord;
+	}
+
 
 
     bool ordre_sommet(Point* a, Point* b)
@@ -170,6 +163,24 @@ protected:
 
 	Coord m_Coord;
 };
+
+
+
+
+
+
+
+#ifndef LIB_THG
+#define LIB_THG
+
+#include "main.h"
+class Path;
+class Svgfile;
+
+
+
+
+
 
 //------------------GRAPH------------------
 

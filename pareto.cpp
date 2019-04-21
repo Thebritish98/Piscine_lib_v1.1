@@ -386,7 +386,7 @@ void dijkstra
 
                nblien=std::bitset<32>(i).count();
 
-                if (nblien==(graph.get_m_points().size()-1)) /// si le chemin a arrete == ordre n-1
+                if (nblien>=(graph.get_m_points().size()-1)) /// si le chemin a arrete == ordre n-1
             {
                  std::string chaine = (std::bitset<32>(i).to_string()).substr((char)32 - (char)graph.get_m_link().size(), 31);
                     try_it.reset();
