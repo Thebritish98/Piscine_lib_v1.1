@@ -19,6 +19,7 @@
 #include  <algorithm>
 #include "Display.h"
 #include "Graphe.h"
+
 class BoardResult;
 namespace util
 {
@@ -32,12 +33,12 @@ namespace util
 		send a std::vector test with all options
 		**/
 		T choice;
-		util::Line();
+//		util::Line();
 		std::cout << _title << std::endl;
-		util::Line();
+		//util::Line();
 		for (const auto& elem : _mapname)
 		{
-			std::cout << elem.first << "/ " << elem.second << std::endl;
+                std::cout << elem.first << "/ " << elem.second << std::endl;
 		}
 		while (_mapname.find(choice) == _mapname.end())
 		{
