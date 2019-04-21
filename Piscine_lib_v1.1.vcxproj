@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Graphe.cpp" />
+    <ClCompile Include="Interface.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pareto.cpp" />
     <ClCompile Include="Path.cpp" />
@@ -132,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="Display.h" />
     <ClInclude Include="Graphe.h" />
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="pareto.h" />
     <ClInclude Include="Path.h" />

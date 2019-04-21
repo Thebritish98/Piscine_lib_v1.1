@@ -142,11 +142,13 @@ protected:
 class Graph
 {
 public:
+	Graph(){}
 	Graph(std::string _FileName);
+	void reload(std::string _FileName);
 	Graph(Path& _copy_path, Graph& _base_graph);
 	~Graph();
 
-	Path Djisktra_for_path(Graph& _graph);
+	std::vector<Path*> Djisktra_for_path(Graph& _graph,unsigned int _id);
 	void Djisktra_for_weight(Graph& _graph);
 
 	//---------------GETTER----------------------------
@@ -158,11 +160,16 @@ public:
 	{
 		return m_links;
 	}
+	std::string get_model_name()
+	{
+		return m_model_name;
+	}
 
 
 protected:
 	std::vector<Point*> m_points;
 	std::vector<Link*> m_links;
+	std::string m_model_name;
 };
 
 

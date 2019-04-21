@@ -147,7 +147,7 @@ void Svgfile::addGraph(std::vector<Coord>& _all_sol,std::vector<Coord>& _valid_s
 void Svgfile::addModel(Graph& _graph, double _x, double _y,std::string _color, bool _show_info, float _coef)
 {
 	Coord coord_min(_graph.get_m_points()[0]->get_coord().get_x(), _graph.get_m_points()[0]->get_coord().get_y());
-	//calcul de rapport pour la taille des arr�tes
+	//calcul de rapport pour la taille des arrêtes
 	//search smallest coord
 	for (size_t i = 0; i < _graph.get_m_points().size(); i++)
 	{
@@ -164,8 +164,6 @@ void Svgfile::addModel(Graph& _graph, double _x, double _y,std::string _color, b
 	for (const auto& it : _graph.get_m_points())
 	{
 		this->addCircle(it->get_coord().get_x() - coord_min.get_x() + _x, it->get_coord().get_y() - coord_min.get_y() + _y, 5,_color);
-		/*if(_show_info)
-			this->addText(it->get_coord().get_x() - coord_min.get_x() + _x-5, it->get_coord().get_y() - coord_min.get_y() + _y+5,it->get_id(),"red");*/
 	}
 	for (const auto& at : _graph.get_m_link())
 	{
@@ -237,23 +235,34 @@ void BoardResult::give_results(Svgfile& _out, Graph& _graph,std::string _filenam
 	if (m_mode == "high_tech")
 	{
 		color = "white";
-		font = "Myriad-Pro";
+		font = "Merriweather Sans";
+		_out.addText(214, 75, _filename, "light blue", "80px", font);
+		_out.addText(212, 77, _filename, color, "80px", font);
 	}
 	else if (m_mode=="retro_turbo")
 	{
 		color = "#326775";
-		//font = "";
+		font = "Anton";
+		_out.addText(312, 75, _filename, color, "80px", font);
+		_out.addText(314, 77, _filename, "url(#back1)", "80px", font);
 	}
 	else
 		color = "red";
 	this->set_template(_out);
-	_out.addText(114, 77, _filename, color, "80px", font);
-	_out.addText(112, 75, _filename, "url(#back1)", "80px", font);
 	_out.addModel(_graph,140,110,color);
 }
 
 void BoardResult::set_mode()
 {
+	std::string mode="none";
+	std::cout << "Enable mode:\t\tretro_turbo\t\thigh_tech" << std::endl;
+	while (mode != "retro_turbo" && mode != "high_tech" )
+	{
+		std::cin >> mode;
+		if (mode != "retro_turbo" && mode != "high_tech" )
+			std::cout << "Valeur non reconnu\n\n";
+	}
+	m_mode = mode;
 }
 
 BoardResult::~BoardResult()

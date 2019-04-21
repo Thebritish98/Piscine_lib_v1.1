@@ -6,12 +6,14 @@
     <stop offset="57,93%" style="stop-color:#B5E3EE;stop-opacity:100%" />
     <stop offset="90%" style="stop-color:#107A9E;stop-opacity:1" />
   </radialGradient>
-  </defs>
-  <defs>
     <linearGradient id="lin_button" x1="0%" y1="0%" x2="200%" y2="0%">
       <stop offset="20.54%" style="stop-color:#FFFFFF;stop-opacity:0.3" />
       <stop offset="44.59%" style="stop-color:#FFFFFF;stop-opacity:1" />
-    </linearGradient>
+  </linearGradient>
+  <style>
+      @import url("https://fonts.googleapis.com/css?family=Merriweather+Sans:800");
+  </style>
+
 </defs>
 
   //*BACKGROUND*//
