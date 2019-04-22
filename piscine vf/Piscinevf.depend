@@ -1,0 +1,53 @@
+# depslib dependency file v1.0
+1555866909 source:d:\kalmuns\programmation\piscine vf\display.cpp
+	"Display.h"
+
+1555866909 d:\kalmuns\programmation\piscine vf\display.h
+	"main.h"
+
+1555879259 d:\kalmuns\programmation\piscine vf\main.h
+	<bitset>
+	<math.h>
+	<iostream>
+	<unordered_map>
+	<map>
+	<unordered_set>
+	<string>
+	<vector>
+	<ostream>
+	<fstream>
+	<sstream>
+	<stack>
+	<queue>
+	<set>
+	<Windows.h>
+	<algorithm>
+	"Display.h"
+	"Graphe.h"
+	"Path.h"
+	"pareto.h"
+
+1555899833 d:\kalmuns\programmation\piscine vf\graphe.h
+	"main.h"
+
+1555866909 d:\kalmuns\programmation\piscine vf\path.h
+	"main.h"
+
+1555879238 d:\kalmuns\programmation\piscine vf\pareto.h
+	"main.h"
+
+1555899824 source:d:\kalmuns\programmation\piscine vf\graphe.cpp
+	"Graphe.h"
+
+1555866909 source:d:\kalmuns\programmation\piscine vf\kruskal.cpp
+
+1555900423 source:d:\kalmuns\programmation\piscine vf\main.cpp
+	"main.h"
+
+1555902813 source:d:\kalmuns\programmation\piscine vf\pareto.cpp
+	"main.h"
+
+1555900323 source:d:\kalmuns\programmation\piscine vf\path.cpp
+	"Path.h"
+	<iterator>
+
